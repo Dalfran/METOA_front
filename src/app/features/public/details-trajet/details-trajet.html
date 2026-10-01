@@ -1,0 +1,1115 @@
+<section class="details-page">
+
+  <!-- =====================================================
+       CHARGEMENT
+       ===================================================== -->
+
+  @if (chargement) {
+
+    <div class="loading-state">
+
+      <div class="loading-spinner"></div>
+
+      <h2>
+        Chargement du trajet...
+      </h2>
+
+      <p>
+        Nous récupérons les informations du trajet.
+      </p>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       ERREUR
+       ===================================================== -->
+
+  @if (!chargement && erreur) {
+
+    <div class="error-state">
+
+      <span class="error-icon">
+        ⚠️
+      </span>
+
+      <h2>
+        Impossible de charger le trajet
+      </h2>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+      <a
+        [routerLink]="[prefixeTrajets]"
+        class="back-button"
+      >
+        ← Retour aux trajets
+      </a>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       CONTENU DU TRAJET
+       ===================================================== -->
+
+  @if (!chargement && trajet) {
+
+    <!-- ===================================================
+         RETOUR
+         =================================================== -->
+
+    <a
+      [routerLink]="[prefixeTrajets]"
+      class="back-link"
+    >
+      ← Retour aux trajets
+    </a>
+
+
+    <!-- ===================================================
+         HEADER
+         =================================================== -->
+
+    <div class="details-header">
+
+      <div>
+
+        <span class="page-badge">
+          DÉTAIL DU TRAJET
+        </span>
+
+        <h1>
+
+          {{ trajet.villeDepart }}
+
+          <span>
+            → {{ trajet.villeDestination }}
+          </span>
+
+        </h1>
+
+        <p>
+          Découvrez toutes les informations concernant
+          ce trajet avant votre réservation.
+        </p>
+
+      </div>
+
+
+      <!-- =================================================
+           STATUT DU TRAJET
+           ================================================= -->
+
+      <div
+        class="available-badge"
+        [class.unavailable]="
+          trajetAnnule ||
+          trajetPasse ||
+          trajetComplet
+        "
+      >
+
+        @if (trajetAnnule) {
+
+          ● Trajet annulé
+
+        } @else if (trajetPasse) {
+
+          ● Trajet terminé
+
+        } @else if (trajetComplet) {
+
+          ● Trajet complet
+
+        } @else {
+
+          ● Disponible
+
+        }
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         GRILLE PRINCIPALE
+         =================================================== -->
+
+    <div class="details-grid">
+
+
+      <!-- =================================================
+           COLONNE PRINCIPALE
+           ================================================= -->
+
+      <div class="main-column">
+
+
+        <!-- =================================================
+             ITINÉRAIRE
+             ================================================= -->
+
+        <article class="details-card route-card">
+
+          <div class="card-header">
+
+            <div>
+
+              <span class="card-label">
+                ITINÉRAIRE
+              </span>
+
+              <h2>
+                Votre voyage
+              </h2>
+
+            </div>
+
+            <span class="route-icon">
+              🚗
+            </span>
+
+          </div>
+
+
+          <div class="journey">
+
+
+            <!-- =============================================
+                 DÉPART
+                 ============================================= -->
+
+            <div class="journey-point">
+
+              <span
+                class="journey-dot departure"
+              ></span>
+
+              <div>
+
+                <small>
+                  Départ
+                </small>
+
+                <strong>
+                  {{ trajet.villeDepart }}
+                </strong>
+
+                <span>
+                  {{ trajet.adresseDepart }}
+                </span>
+
+                <span>
+                  {{ trajet.heureDepart }}
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 LIGNE
+                 ============================================= -->
+
+            <div class="journey-line">
+
+              <span></span>
+              <span></span>
+              <span></span>
+
+            </div>
+
+
+            <!-- =============================================
+                 DESTINATION
+                 ============================================= -->
+
+            <div class="journey-point">
+
+              <span
+                class="journey-dot destination"
+              ></span>
+
+              <div>
+
+                <small>
+                  Destination
+                </small>
+
+                <strong>
+                  {{ trajet.villeDestination }}
+                </strong>
+
+                <span>
+                  {{ trajet.adresseDestination }}
+                </span>
+
+                <span>
+                  Arrivée prévue
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               DATE
+               ============================================= -->
+
+          <div class="journey-date">
+
+            <span>
+              📅
+            </span>
+
+            <div>
+
+              <small>
+                Date du trajet
+              </small>
+
+              <strong>
+                {{ trajet.dateDepart | date:'dd/MM/yyyy' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- =================================================
+             INFORMATIONS DU TRAJET
+             ================================================= -->
+
+        <article class="details-card">
+
+          <div class="card-header">
+
+            <div>
+
+              <span class="card-label">
+                INFORMATIONS
+              </span>
+
+              <h2>
+                Informations du trajet
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div class="info-grid">
+
+
+            <!-- =============================================
+                 HEURE
+                 ============================================= -->
+
+            <div class="info-item">
+
+              <span class="info-icon">
+                🕐
+              </span>
+
+              <div>
+
+                <small>
+                  Heure de départ
+                </small>
+
+                <strong>
+                  {{ trajet.heureDepart }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 PLACES
+                 ============================================= -->
+
+            <div class="info-item">
+
+              <span class="info-icon">
+                👤
+              </span>
+
+              <div>
+
+                <small>
+                  Places disponibles
+                </small>
+
+                <strong>
+                  {{ trajet.placesDisponibles }}
+                  /
+                  {{ trajet.nombrePlaces }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 PRIX
+                 ============================================= -->
+
+            <div class="info-item">
+
+              <span class="info-icon">
+                💰
+              </span>
+
+              <div>
+
+                <small>
+                  Prix par passager
+                </small>
+
+                <strong>
+                  {{ trajet.prix | number:'1.0-0' }}
+                  FCFA
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 STATUT
+                 ============================================= -->
+
+            <div class="info-item">
+
+              <span class="info-icon">
+                🚦
+              </span>
+
+              <div>
+
+                <small>
+                  Statut
+                </small>
+
+                <strong>
+
+                  @if (trajetAnnule) {
+
+                    Annulé
+
+                  } @else if (trajetPasse) {
+
+                    Terminé
+
+                  } @else if (trajetComplet) {
+
+                    Complet
+
+                  } @else {
+
+                    Planifié
+
+                  }
+
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- =================================================
+             DESCRIPTION
+             ================================================= -->
+
+        <article class="details-card">
+
+          <span class="card-label">
+            DESCRIPTION
+          </span>
+
+          <h2>
+            À propos de ce trajet
+          </h2>
+
+
+          @if (trajet.description) {
+
+            <p class="description">
+              {{ trajet.description }}
+            </p>
+
+          } @else {
+
+            <p class="description">
+              Aucune description n'a été ajoutée
+              pour ce trajet.
+            </p>
+
+          }
+
+        </article>
+
+
+      </div>
+
+
+      <!-- =================================================
+           SIDEBAR
+           ================================================= -->
+
+      <aside class="sidebar">
+
+
+        <!-- =================================================
+             CONDUCTEUR
+             ================================================= -->
+
+        <article class="details-card driver-card">
+
+          <span class="card-label">
+            CONDUCTEUR
+          </span>
+
+
+          <div class="driver-profile">
+
+            <div class="driver-avatar">
+
+              @if (trajet.chauffeur.prenom) {
+
+                {{
+                  trajet.chauffeur.prenom
+                    .charAt(0)
+                    .toUpperCase()
+                }}
+
+              } @else {
+
+                ?
+
+              }
+
+            </div>
+
+
+            <div>
+
+              <h2>
+
+                {{ trajet.chauffeur.prenom }}
+                {{ trajet.chauffeur.nom }}
+
+              </h2>
+
+
+              @if (
+                trajet.chauffeur.noteMoyenne !== undefined &&
+                trajet.chauffeur.noteMoyenne !== null
+                ) {
+
+                <div class="rating">
+
+                  <span>
+                    ⭐
+                  </span>
+
+                  <strong>
+                    {{
+                      trajet.chauffeur.noteMoyenne
+                        | number:'1.1-1'
+                    }}
+                  </strong>
+
+                </div>
+
+              } @else {
+
+                <div class="rating">
+
+                  <small>
+                    Aucune note disponible
+                  </small>
+
+                </div>
+
+              }
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- =================================================
+             BLOC RÉSERVATION
+             ================================================= -->
+
+        <article class="booking-card">
+
+
+          <!-- =============================================
+               PRIX
+               ============================================= -->
+
+          <div class="booking-price">
+
+            <small>
+              Prix par passager
+            </small>
+
+            <strong>
+
+              {{ trajet.prix | number:'1.0-0' }}
+
+              <span>
+                FCFA
+              </span>
+
+            </strong>
+
+          </div>
+
+
+          <div class="booking-separator"></div>
+
+
+          <!-- =============================================
+               PLACES DISPONIBLES
+               ============================================= -->
+
+          <div class="booking-places">
+
+            <span>
+              Places disponibles
+            </span>
+
+            <strong>
+              {{ trajet.placesDisponibles }}
+            </strong>
+
+          </div>
+
+
+          <!-- =============================================
+               ACTION DE RÉSERVATION
+               ============================================= -->
+
+          <div class="reservation-action">
+
+
+            <!-- TRAJET ANNULÉ -->
+
+            @if (trajetAnnule) {
+
+              <div
+                class="reservation-status reservation-status-cancelled"
+              >
+
+                <span class="status-icon">
+                  ✕
+                </span>
+
+                <div>
+
+                  <strong>
+                    Trajet annulé
+                  </strong>
+
+                  <small>
+                    Ce trajet n'est plus disponible.
+                  </small>
+
+                </div>
+
+              </div>
+
+            }
+
+
+            <!-- TRAJET TERMINÉ -->
+
+            @else if (trajetPasse) {
+
+              <div
+                class="reservation-status reservation-status-past"
+              >
+
+                <span class="status-icon">
+                  ◷
+                </span>
+
+                <div>
+
+                  <strong>
+                    Trajet terminé
+                  </strong>
+
+                  <small>
+                    Ce trajet est déjà parti.
+                  </small>
+
+                </div>
+
+              </div>
+
+            }
+
+
+            <!-- TRAJET COMPLET -->
+
+            @else if (trajetComplet) {
+
+              <div
+                class="reservation-status reservation-status-full"
+              >
+
+                <span class="status-icon">
+                  !
+                </span>
+
+                <div>
+
+                  <strong>
+                    Trajet complet
+                  </strong>
+
+                  <small>
+                    Il n'y a plus de places disponibles.
+                  </small>
+
+                </div>
+
+              </div>
+
+            }
+
+
+            <!-- TRAJET DISPONIBLE -->
+
+            @else {
+
+              <button
+                type="button"
+                class="reservation-button"
+                [disabled]="reservationEnCours"
+                (click)="ouvrirReservation()"
+              >
+
+                @if (reservationEnCours) {
+
+                  Réservation en cours...
+
+                } @else {
+
+                  Réserver ce trajet
+
+                }
+
+              </button>
+
+            }
+
+          </div>
+
+
+          <!-- =============================================
+               CONTACT CONDUCTEUR
+               ============================================= -->
+
+          <button
+            type="button"
+            class="message-button"
+            (click)="contacterConducteur()"
+          >
+            💬 Contacter le conducteur
+          </button>
+
+
+          <!-- =============================================
+               INFORMATION
+               ============================================= -->
+
+          <p class="booking-note">
+
+            Vous pourrez choisir le nombre de places
+            avant de confirmer votre réservation.
+
+          </p>
+
+        </article>
+
+
+      </aside>
+
+    </div>
+
+  }
+
+</section>
+
+
+<!-- =====================================================
+     MODAL DE RÉSERVATION
+     ===================================================== -->
+
+@if (reservationOuverte && trajet) {
+
+  <div
+    class="reservation-overlay"
+    (click)="fermerReservation()"
+  >
+
+    <div
+      class="reservation-modal"
+      (click)="$event.stopPropagation()"
+    >
+
+
+      <!-- =================================================
+           HEADER MODAL
+           ================================================= -->
+
+      <div class="modal-header">
+
+        <div>
+
+          <span class="card-label">
+            RÉSERVATION
+          </span>
+
+          <h2>
+            Réserver votre trajet
+          </h2>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="close-modal"
+          aria-label="Fermer"
+          (click)="fermerReservation()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <!-- =================================================
+           TRAJET
+           ================================================= -->
+
+      <div class="reservation-route">
+
+        <div>
+
+          <small>
+            Départ
+          </small>
+
+          <strong>
+            {{ trajet.villeDepart }}
+          </strong>
+
+        </div>
+
+
+        <div class="reservation-arrow">
+          →
+        </div>
+
+
+        <div>
+
+          <small>
+            Destination
+          </small>
+
+          <strong>
+            {{ trajet.villeDestination }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           DATE / HEURE
+           ================================================= -->
+
+      <div class="reservation-date">
+
+        <span>
+
+          📅
+          {{ trajet.dateDepart | date:'dd/MM/yyyy' }}
+
+        </span>
+
+        <span>
+
+          🕐
+          {{ trajet.heureDepart }}
+
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           SECTION NOMBRE DE PLACES
+           ================================================= -->
+
+      <div class="places-section">
+
+        <div>
+
+          <small>
+            Nombre de places
+          </small>
+
+          <p>
+
+            @if (trajet.placesDisponibles === 1) {
+
+              1 place disponible
+
+            } @else {
+
+              {{ trajet.placesDisponibles }}
+              places disponibles
+
+            }
+
+          </p>
+
+        </div>
+
+
+        <div class="places-selector">
+
+          <!-- MOINS -->
+
+          <button
+            type="button"
+            aria-label="Diminuer le nombre de places"
+            (click)="diminuerPlaces()"
+            [disabled]="
+              nombrePlaces <= 1 ||
+              reservationEnCours
+            "
+          >
+            −
+          </button>
+
+
+          <!-- NOMBRE -->
+
+          <strong>
+            {{ nombrePlaces }}
+          </strong>
+
+
+          <!-- PLUS -->
+
+          <button
+            type="button"
+            aria-label="Augmenter le nombre de places"
+            (click)="augmenterPlaces()"
+            [disabled]="
+              nombrePlaces >= trajet.placesDisponibles ||
+              reservationEnCours
+            "
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           RÉSUMÉ DU PRIX
+           ================================================= -->
+
+      <div class="price-summary">
+
+
+        <!-- PRIX UNITAIRE -->
+
+        <div>
+
+          <span>
+            Prix par place
+          </span>
+
+          <strong>
+
+            {{ trajet.prix | number:'1.0-0' }}
+
+            FCFA
+
+          </strong>
+
+        </div>
+
+
+        <!-- TOTAL -->
+
+        <div class="total-price">
+
+          <span>
+            Total
+          </span>
+
+          <strong>
+
+            {{ prixTotal | number:'1.0-0' }}
+
+            FCFA
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           MESSAGE DE SUCCÈS
+           ================================================= -->
+
+      @if (messageSucces) {
+
+        <div class="reservation-success">
+
+          <span>
+            ✓
+          </span>
+
+          <span>
+            {{ messageSucces }}
+          </span>
+
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           MESSAGE D'ERREUR
+           ================================================= -->
+
+      @if (erreurReservation) {
+
+        <div class="reservation-error">
+
+          <span>
+            ⚠️
+          </span>
+
+          <span>
+            {{ erreurReservation }}
+          </span>
+
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div class="modal-actions">
+
+
+        <!-- ANNULER -->
+
+        <button
+          type="button"
+          class="cancel-button"
+          [disabled]="reservationEnCours"
+          (click)="fermerReservation()"
+        >
+          Annuler
+        </button>
+
+
+        <!-- CONFIRMER -->
+
+        <button
+          type="button"
+          class="confirm-button"
+          [disabled]="
+            reservationEnCours ||
+            nombrePlaces < 1 ||
+            nombrePlaces > trajet.placesDisponibles
+          "
+          (click)="confirmerReservation()"
+        >
+
+          @if (reservationEnCours) {
+
+            <span>
+              Réservation en cours...
+            </span>
+
+          } @else {
+
+            <span>
+              Confirmer la réservation
+            </span>
+
+          }
+
+        </button>
+
+      </div>
+
+
+      <!-- =================================================
+           INFO
+           ================================================= -->
+
+      <p class="reservation-info">
+
+        Votre réservation sera envoyée au conducteur
+        pour confirmation.
+
+      </p>
+
+    </div>
+
+  </div>
+
+}

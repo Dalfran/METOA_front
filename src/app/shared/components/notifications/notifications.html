@@ -1,0 +1,260 @@
+<div class="notifications-wrapper">
+
+  <!-- =====================================================
+       BOUTON CLOCHE
+  ====================================================== -->
+
+  <button
+    type="button"
+    class="notification-bell"
+    [class.active]="panneauOuvert"
+    (click)="togglePanneau()"
+    aria-label="Notifications"
+    [attr.aria-expanded]="panneauOuvert"
+  >
+
+    <span class="bell-icon">
+      🔔
+    </span>
+
+
+    @if (unreadCount > 0) {
+
+      <span class="notification-badge">
+
+        {{
+          unreadCount > 99
+            ? '99+'
+            : unreadCount
+        }}
+
+      </span>
+
+    }
+
+  </button>
+
+
+  <!-- =====================================================
+       PANNEAU
+  ====================================================== -->
+
+  @if (panneauOuvert) {
+
+    <div class="notifications-panel">
+
+
+      <!-- =================================================
+           HEADER
+      ================================================== -->
+
+      <div class="notifications-header">
+
+        <div>
+
+          <h3>
+            Notifications
+          </h3>
+
+          <span class="notifications-count">
+
+            @if (unreadCount > 0) {
+
+              {{ unreadCount }}
+              non lue{{ unreadCount > 1 ? 's' : '' }}
+
+            } @else {
+
+              Tout est lu
+
+            }
+
+          </span>
+
+        </div>
+
+
+        @if (unreadCount > 0) {
+
+          <button
+            type="button"
+            class="mark-all-button"
+            (click)="marquerToutCommeLu()"
+          >
+
+            Tout lire
+
+          </button>
+
+        }
+
+      </div>
+
+
+      <!-- =================================================
+           CHARGEMENT
+      ================================================== -->
+
+      @if (chargement) {
+
+        <div class="notifications-loading">
+
+          <span class="loading-spinner"></span>
+
+          <span>
+            Chargement...
+          </span>
+
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           ERREUR
+      ================================================== -->
+
+      @if (!chargement && erreur) {
+
+        <div class="notifications-error">
+
+          {{ erreur }}
+
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           VIDE
+      ================================================== -->
+
+      @if (
+        !chargement
+        && !erreur
+        && notifications.length === 0
+        ) {
+
+        <div class="notifications-empty">
+
+          <div class="empty-icon">
+            🔔
+          </div>
+
+          <strong>
+            Aucune notification
+          </strong>
+
+          <span>
+            Vous êtes à jour !
+          </span>
+
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           LISTE
+      ================================================== -->
+
+      @if (
+        !chargement
+        && !erreur
+        && notifications.length > 0
+        ) {
+
+        <div class="notifications-list">
+
+
+          @for (
+            notification of notifications;
+            track notification.notificationId
+            ) {
+
+            <div
+              class="notification-item"
+              [class.unread]="!notification.readStatus"
+              (click)="marquerCommeLue(notification)"
+            >
+
+
+              <!-- =========================================
+                   ICÔNE
+              ========================================== -->
+
+              <div
+                class="notification-icon"
+                [class]="getClasseType(notification.type)"
+              >
+
+                {{ getIconeNotification(notification.type) }}
+
+              </div>
+
+
+              <!-- =========================================
+                   CONTENU
+              ========================================== -->
+
+              <div class="notification-content">
+
+                <div class="notification-message">
+
+                  {{ notification.message }}
+
+                </div>
+
+
+                <div class="notification-date">
+
+                  {{ formaterDate(notification.createdAt) }}
+
+                </div>
+
+              </div>
+
+
+              <!-- =========================================
+                   INDICATEUR NON LU
+              ========================================== -->
+
+              @if (!notification.readStatus) {
+
+                <span
+                  class="unread-dot"
+                  aria-label="Non lue"
+                ></span>
+
+              }
+
+
+              <!-- =========================================
+                   SUPPRESSION
+              ========================================== -->
+
+              <button
+                type="button"
+                class="delete-notification"
+                title="Supprimer"
+                aria-label="Supprimer la notification"
+                (click)="supprimerNotification($event, notification)"
+              >
+
+                ×
+
+              </button>
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

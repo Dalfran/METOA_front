@@ -1,0 +1,178 @@
+<nav class="navbar">
+
+  <div class="navbar-container">
+
+    <!-- =========================
+         LOGO
+         ========================= -->
+
+    <a
+      routerLink="/"
+      class="logo"
+      (click)="fermerMenu()"
+    >
+
+      <span class="logo-m">
+
+        <img
+          src="favicon.ico"
+          alt="METOA"
+        >
+
+      </span>
+
+      <span class="logo-text">
+        METOA
+      </span>
+
+    </a>
+
+
+    <!-- =========================
+         NAVIGATION DESKTOP
+         ========================= -->
+
+    <div class="nav-links">
+
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Accueil
+      </a>
+
+      <a
+        routerLink="/trajets"
+        routerLinkActive="active"
+      >
+        Trajets
+      </a>
+
+      <a
+        routerLink="/about"
+        routerLinkActive="active"
+      >
+        À propos
+      </a>
+
+      <a
+        routerLink="/contact"
+        routerLinkActive="active"
+      >
+        Contact
+      </a>
+
+    </div>
+
+
+    <!-- =========================
+         ACTIONS DESKTOP
+         ========================= -->
+
+    <div class="nav-actions">
+
+      <a
+        routerLink="/login"
+        class="btn-login"
+      >
+        Connexion
+      </a>
+
+      <a
+        routerLink="/register"
+        class="btn-register"
+      >
+        S'inscrire
+      </a>
+
+    </div>
+
+
+    <!-- =========================
+         BOUTON MOBILE
+         ========================= -->
+
+    <button
+      type="button"
+      class="menu-toggle"
+      [class.open]="menuOuvert"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOuvert"
+      aria-label="Ouvrir le menu"
+    >
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       MENU MOBILE
+       ========================= -->
+
+  <div
+    class="mobile-menu"
+    [class.open]="menuOuvert"
+  >
+
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="fermerMenu()"
+    >
+      Accueil
+    </a>
+
+    <a
+      routerLink="/trajets"
+      routerLinkActive="active"
+      (click)="fermerMenu()"
+    >
+      Trajets
+    </a>
+
+    <a
+      routerLink="/about"
+      routerLinkActive="active"
+      (click)="fermerMenu()"
+    >
+      À propos
+    </a>
+
+    <a
+      routerLink="/contact"
+      routerLinkActive="active"
+      (click)="fermerMenu()"
+    >
+      Contact
+    </a>
+
+
+    <div class="mobile-menu-divider"></div>
+
+
+    <a
+      routerLink="/login"
+      class="mobile-login"
+      (click)="fermerMenu()"
+    >
+      Connexion
+    </a>
+
+    <a
+      routerLink="/register"
+      class="mobile-register"
+      (click)="fermerMenu()"
+    >
+      S'inscrire
+    </a>
+
+  </div>
+
+</nav>

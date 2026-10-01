@@ -1,0 +1,695 @@
+<section class="trajets-page">
+
+  <!-- ========================================= -->
+  <!-- HEADER -->
+  <!-- ========================================= -->
+
+  <div class="page-header">
+
+    <div>
+
+      <span class="page-badge">
+        RECHERCHE
+      </span>
+
+      <h1>
+        Trouvez votre
+        <span>prochain trajet</span>
+      </h1>
+
+      <p>
+        Recherchez un trajet et voyagez simplement
+        avec la communauté METOA.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- ========================================= -->
+  <!-- SEARCH -->
+  <!-- ========================================= -->
+
+  <div class="search-card">
+
+    <div class="search-title">
+
+      <div class="search-icon">
+        🔎
+      </div>
+
+      <div>
+
+        <h2>
+          Rechercher un trajet
+        </h2>
+
+        <p>
+          Indiquez votre départ et votre destination.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="search-form">
+
+      <!-- ===================================== -->
+      <!-- DEPART -->
+      <!-- ===================================== -->
+
+      <div class="form-group">
+
+        <label for="depart">
+          Départ
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>📍</span>
+
+          <input
+            id="depart"
+            type="text"
+            placeholder="Ex : Yaoundé"
+            [(ngModel)]="depart"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- ===================================== -->
+      <!-- DESTINATION -->
+      <!-- ===================================== -->
+
+      <div class="form-group">
+
+        <label for="destination">
+          Destination
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>📍</span>
+
+          <input
+            id="destination"
+            type="text"
+            placeholder="Ex : Douala"
+            [(ngModel)]="destination"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- ===================================== -->
+      <!-- DATE -->
+      <!-- ===================================== -->
+
+      <div class="form-group">
+
+        <label for="date">
+          Date
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>📅</span>
+
+          <input
+            id="date"
+            type="date"
+            [(ngModel)]="date"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- ===================================== -->
+      <!-- PLACES -->
+      <!-- ===================================== -->
+
+      <div class="form-group">
+
+        <label for="places">
+          Passagers
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>👤</span>
+
+          <select
+            id="places"
+            [(ngModel)]="places"
+          >
+
+            <option [ngValue]="1">
+              1 passager
+            </option>
+
+            <option [ngValue]="2">
+              2 passagers
+            </option>
+
+            <option [ngValue]="3">
+              3 passagers
+            </option>
+
+            <option [ngValue]="4">
+              4 passagers
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- ===================================== -->
+      <!-- BUTTON -->
+      <!-- ===================================== -->
+
+      <button
+        type="button"
+        class="search-button"
+        [disabled]="chargement"
+        (click)="rechercher()"
+      >
+
+        @if (chargement) {
+
+          Recherche...
+
+        } @else {
+
+          🔎 Rechercher
+
+        }
+
+      </button>
+
+    </div>
+
+
+    <!-- ======================================= -->
+    <!-- RESET -->
+    <!-- ======================================= -->
+
+    <button
+      type="button"
+      class="reset-button"
+      [disabled]="chargement"
+      (click)="reinitialiser()"
+    >
+      Réinitialiser la recherche
+    </button>
+
+  </div>
+
+
+  <!-- ========================================= -->
+  <!-- ERROR -->
+  <!-- ========================================= -->
+
+  @if (erreur) {
+
+    <div class="error-message">
+
+      <span>
+        ⚠️
+      </span>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+    </div>
+
+  }
+
+
+  <!-- ========================================= -->
+  <!-- RESULTS -->
+  <!-- ========================================= -->
+
+  <section class="results-section">
+
+    <div class="results-header">
+
+      <div>
+
+        <span class="results-label">
+          TRAJETS DISPONIBLES
+        </span>
+
+        <h2>
+
+          {{ totalElements }}
+
+          trajet{{ totalElements > 1 ? 's' : '' }}
+
+          trouvé{{ totalElements > 1 ? 's' : '' }}
+
+        </h2>
+
+      </div>
+
+
+      <span class="result-info">
+
+        @if (rechercheEffectuee) {
+
+          Résultats de votre recherche
+
+        } @else {
+
+          Tous les trajets
+
+        }
+
+      </span>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- LOADING -->
+    <!-- ========================================= -->
+
+    @if (
+      chargement &&
+      trajetsFiltres.length === 0
+      ) {
+
+      <div class="loading-state">
+
+        <div class="loading-icon">
+          ⏳
+        </div>
+
+        <h3>
+          Recherche des trajets...
+        </h3>
+
+        <p>
+          Nous récupérons les trajets disponibles.
+        </p>
+
+      </div>
+
+    }
+
+
+    <!-- ========================================= -->
+    <!-- TRAJETS LIST -->
+    <!-- ========================================= -->
+
+    @if (
+      !chargement ||
+      trajetsFiltres.length > 0
+      ) {
+
+      <div class="trajets-list">
+
+        @for (
+          trajet of trajetsFiltres;
+          track trajet.idTrajet
+          ) {
+
+          <article class="trajet-card">
+
+            <!-- ================================= -->
+            <!-- MAIN -->
+            <!-- ================================= -->
+
+            <div class="trajet-main">
+
+
+              <!-- =============================== -->
+              <!-- ROUTE -->
+              <!-- =============================== -->
+
+              <div class="route">
+
+                <!-- DEPART -->
+
+                <div class="route-point">
+
+                  <span
+                    class="route-dot departure"
+                  ></span>
+
+                  <div>
+
+                    <small>
+                      Départ
+                    </small>
+
+                    <strong>
+                      {{ trajet.villeDepart }}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <div class="route-line"></div>
+
+
+                <!-- DESTINATION -->
+
+                <div class="route-point">
+
+                  <span
+                    class="route-dot destination"
+                  ></span>
+
+                  <div>
+
+                    <small>
+                      Destination
+                    </small>
+
+                    <strong>
+                      {{ trajet.villeDestination }}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- =============================== -->
+              <!-- STATUT -->
+              <!-- =============================== -->
+
+              <div
+                class="trip-status"
+                [class]="getClasseStatutTrajet(trajet)"
+              >
+
+                <span class="status-dot"></span>
+
+                <span>
+                  {{ getStatutTrajet(trajet) }}
+                </span>
+
+              </div>
+
+
+              <!-- =============================== -->
+              <!-- INFO -->
+              <!-- =============================== -->
+
+              <div class="trajet-info">
+
+                <span>
+                  🕐
+                  {{ trajet.heureDepart }}
+                </span>
+
+                <span>
+                  📅
+                  {{ trajet.dateDepart | date:'dd/MM/yyyy' }}
+                </span>
+
+                <span>
+                  👥
+                  {{ trajet.placesDisponibles }}
+                  /
+                  {{ trajet.nombrePlaces }}
+                  place{{ trajet.nombrePlaces > 1 ? 's' : '' }}
+                </span>
+
+              </div>
+
+
+              <!-- =============================== -->
+              <!-- DISPONIBILITE -->
+              <!-- =============================== -->
+
+              <div class="places-info">
+
+                @if (estTrajetAnnule(trajet)) {
+
+                  <span class="places-disabled">
+                    Trajet indisponible
+                  </span>
+
+                } @else if (estTrajetPasse(trajet)) {
+
+                  <span class="places-disabled">
+                    Trajet terminé
+                  </span>
+
+                } @else if (estTrajetComplet(trajet)) {
+
+                  <span class="places-full">
+                    Aucune place disponible
+                  </span>
+
+                } @else {
+
+                  <span class="places-available">
+
+                    {{ trajet.placesDisponibles }}
+
+                    {{
+                      trajet.placesDisponibles === 1
+                        ? 'place disponible'
+                        : 'places disponibles'
+                    }}
+
+                  </span>
+
+                }
+
+              </div>
+
+
+              <!-- =============================== -->
+              <!-- CONDUCTEUR -->
+              <!-- =============================== -->
+
+              <div class="driver">
+
+                <div class="avatar">
+
+                  {{
+                    trajet.chauffeur.prenom
+                      ? trajet.chauffeur.prenom
+                        .charAt(0)
+                        .toUpperCase()
+                      : '?'
+                  }}
+
+                </div>
+
+
+                <div>
+
+                  <small>
+                    Conducteur
+                  </small>
+
+                  <strong>
+
+                    {{ trajet.chauffeur.prenom }}
+                    {{ trajet.chauffeur.nom }}
+
+                  </strong>
+
+                </div>
+
+
+                <span class="rating">
+
+                  ⭐
+
+                  @if (
+                    trajet.chauffeur.noteMoyenne !== null &&
+                    trajet.chauffeur.noteMoyenne !== undefined
+                    ) {
+
+                    {{ trajet.chauffeur.noteMoyenne }}
+
+                  } @else {
+
+                    N/A
+
+                  }
+
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- PRICE / ACTION -->
+            <!-- ================================= -->
+
+            <div class="trajet-action">
+
+              <div class="price">
+
+                <small>
+                  À partir de
+                </small>
+
+                <strong>
+
+                  {{ trajet.prix | number:'1.0-0' }}
+
+                  FCFA
+
+                </strong>
+
+              </div>
+
+
+              <!-- ================================= -->
+              <!-- ACTION -->
+              <!-- ================================= -->
+
+              <a
+                [routerLink]="[
+                  prefixeTrajets,
+                  trajet.idTrajet
+                ]"
+                class="details-button"
+              >
+
+                @if (estTrajetAnnule(trajet)) {
+
+                  Voir les détails
+
+                } @else if (estTrajetPasse(trajet)) {
+
+                  Voir le trajet
+
+                } @else if (estTrajetComplet(trajet)) {
+
+                  Voir les détails
+
+                } @else {
+
+                  Voir le trajet
+
+                }
+
+                <span>
+                  →
+                </span>
+
+              </a>
+
+            </div>
+
+          </article>
+
+        }
+
+
+        <!-- ===================================== -->
+        <!-- EMPTY -->
+        <!-- ===================================== -->
+
+        @if (
+          !chargement &&
+          trajetsFiltres.length === 0
+          ) {
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              🔎
+            </div>
+
+            <h3>
+              Aucun trajet trouvé
+            </h3>
+
+            <p>
+              Aucun trajet ne correspond
+              à vos critères de recherche.
+            </p>
+
+            <button
+              type="button"
+              class="reset-empty"
+              (click)="reinitialiser()"
+            >
+              Voir tous les trajets
+            </button>
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+
+    <!-- ========================================= -->
+    <!-- PAGINATION -->
+    <!-- ========================================= -->
+
+    @if (totalPages > 1) {
+
+      <div class="pagination">
+
+        <button
+          type="button"
+          class="pagination-button"
+          [disabled]="page === 0 || chargement"
+          (click)="pagePrecedente()"
+        >
+          ← Précédent
+        </button>
+
+
+        <span class="pagination-info">
+
+          Page
+          {{ page + 1 }}
+          /
+          {{ totalPages }}
+
+        </span>
+
+
+        <button
+          type="button"
+          class="pagination-button"
+          [disabled]="
+            page + 1 >= totalPages ||
+            chargement
+          "
+          (click)="pageSuivante()"
+        >
+          Suivant →
+        </button>
+
+      </div>
+
+    }
+
+  </section>
+
+</section>

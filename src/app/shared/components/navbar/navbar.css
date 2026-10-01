@@ -1,0 +1,452 @@
+/* =====================================================
+   NAVBAR
+   ===================================================== */
+
+.navbar {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 1000;
+
+  width: 100%;
+
+  background:
+    rgba(5, 9, 31, 0.88);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
+  border-bottom:
+    1px solid var(--metoa-border);
+}
+
+
+.navbar-container {
+  width: min(1200px, 92%);
+
+  min-height: 76px;
+
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+.logo {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+
+  font-size: 21px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+
+.logo-m {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 11px;
+
+  background: var(--metoa-gradient);
+
+  color: white;
+
+  box-shadow:
+    0 0 25px rgba(236, 29, 131, 0.3);
+}
+
+
+.logo-m img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.logo-text {
+  background:
+    linear-gradient(
+      90deg,
+      #a78bfa 0%,
+      #ff6b9d 100%
+    );
+
+  -webkit-background-clip: text;
+
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  color: transparent;
+
+  font-weight: 800;
+
+  font-size: 32px;
+}
+
+
+/* =====================================================
+   LIENS DESKTOP
+   ===================================================== */
+
+.nav-links {
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+
+  margin-left: auto;
+}
+
+
+.nav-links a {
+  position: relative;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  transition:
+    color 0.25s ease;
+}
+
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--metoa-text);
+}
+
+
+.nav-links a.active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  bottom: -10px;
+
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: var(--metoa-gradient);
+}
+
+
+/* =====================================================
+   ACTIONS DESKTOP
+   ===================================================== */
+
+.nav-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.btn-login,
+.btn-register {
+  padding: 10px 17px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.btn-login {
+  color: var(--metoa-text-muted);
+
+  border:
+    1px solid var(--metoa-border);
+}
+
+
+.btn-login:hover {
+  color: var(--metoa-text);
+
+  border-color: var(--metoa-purple);
+}
+
+
+.btn-register {
+  color: white;
+
+  background: var(--metoa-gradient);
+
+  box-shadow:
+    0 5px 20px rgba(123, 44, 255, 0.25);
+}
+
+
+.btn-register:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 25px rgba(123, 44, 255, 0.35);
+}
+
+
+/* =====================================================
+   BOUTON HAMBURGER
+   ===================================================== */
+
+.menu-toggle {
+  display: none;
+
+  width: 44px;
+  height: 44px;
+
+  padding: 10px;
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: 10px;
+
+  background:
+    rgba(123, 44, 255, 0.08);
+
+  cursor: pointer;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+
+.menu-toggle:hover {
+  border-color: var(--metoa-purple);
+
+  background:
+    rgba(123, 44, 255, 0.15);
+}
+
+
+.menu-toggle span {
+  display: block;
+
+  width: 20px;
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: var(--metoa-text);
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+
+/* Animation hamburger → X */
+
+.menu-toggle.open span:nth-child(1) {
+  transform:
+    translateY(7px)
+    rotate(45deg);
+}
+
+
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+
+.menu-toggle.open span:nth-child(3) {
+  transform:
+    translateY(-7px)
+    rotate(-45deg);
+}
+
+
+/* =====================================================
+   MENU MOBILE
+   ===================================================== */
+
+.mobile-menu {
+  display: none;
+
+  width: min(1200px, 92%);
+
+  margin: 0 auto;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  max-height: 0;
+
+  opacity: 0;
+
+  transition:
+    max-height 0.3s ease,
+    opacity 0.25s ease,
+    padding 0.3s ease;
+}
+
+
+.mobile-menu.open {
+  max-height: 500px;
+
+  padding:
+    15px 0 25px;
+
+  opacity: 1;
+}
+
+
+.mobile-menu > a {
+  display: block;
+
+  padding: 13px 15px;
+
+  border-radius: 10px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+
+.mobile-menu > a:hover,
+.mobile-menu > a.active {
+  color: var(--metoa-text);
+
+  background:
+    rgba(123, 44, 255, 0.1);
+}
+
+
+.mobile-menu-divider {
+  height: 1px;
+
+  margin: 10px 0;
+
+  background: var(--metoa-border);
+}
+
+
+.mobile-login {
+  border:
+    1px solid var(--metoa-border);
+
+  margin-top: 8px;
+
+  text-align: center;
+}
+
+
+.mobile-register {
+  margin-top: 10px;
+
+  text-align: center;
+
+  color: white !important;
+
+  background: var(--metoa-gradient);
+}
+
+
+/* =====================================================
+   TABLETTE
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+  .nav-links,
+  .nav-actions {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 500px) {
+
+  .navbar-container {
+    min-height: 68px;
+  }
+
+  .logo-m {
+    width: 42px;
+    height: 42px;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .menu-toggle {
+    width: 42px;
+    height: 42px;
+  }
+
+}

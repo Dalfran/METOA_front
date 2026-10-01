@@ -1,0 +1,729 @@
+/* =========================================================
+   METOA - CONTACT
+   DARK DESIGN SYSTEM
+========================================================= */
+
+:host {
+  display: block;
+}
+
+.contact-page {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(123, 44, 255, 0.08),
+      transparent 30%
+    ),
+    var(--metoa-bg);
+
+  color: var(--metoa-text);
+}
+
+.contact-container {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.contact-hero {
+  position: relative;
+  overflow: hidden;
+
+  padding: 90px 0 100px;
+
+  background:
+    radial-gradient(
+      circle at 15% 30%,
+      rgba(236, 29, 131, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(123, 44, 255, 0.15),
+      transparent 35%
+    ),
+    var(--metoa-bg);
+
+  text-align: center;
+}
+
+.contact-hero::before {
+  content: "";
+
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  right: -180px;
+  top: -220px;
+
+  border-radius: 50%;
+
+  background: rgba(123, 44, 255, 0.08);
+
+  filter: blur(10px);
+}
+
+.contact-badge {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  padding: 8px 16px;
+
+  border-radius: 999px;
+
+  background: rgba(236, 29, 131, 0.08);
+
+  border: 1px solid rgba(236, 29, 131, 0.25);
+
+  color: #ec1d83;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.contact-hero h1 {
+  position: relative;
+
+  margin: 22px auto 0;
+
+  max-width: 800px;
+
+  font-size: clamp(42px, 6vw, 68px);
+
+  line-height: 1.05;
+
+  letter-spacing: -2px;
+}
+
+.contact-hero h1 span {
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.contact-hero p {
+  position: relative;
+
+  max-width: 650px;
+
+  margin: 25px auto 0;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 17px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   MAIN CONTACT
+========================================================= */
+
+.contact-section {
+  padding: 90px 0 110px;
+}
+
+.contact-grid {
+  display: grid;
+
+  grid-template-columns: 0.85fr 1.15fr;
+
+  gap: 60px;
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.section-label {
+  color: var(--metoa-pink);
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+}
+
+.contact-info h2 {
+  margin: 14px 0 18px;
+
+  font-size: clamp(32px, 4vw, 46px);
+
+  line-height: 1.12;
+
+  letter-spacing: -1px;
+}
+
+.contact-info h2 span {
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.intro {
+  max-width: 520px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 15px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   CONTACT ITEMS
+========================================================= */
+
+.contact-items {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+
+  margin-top: 35px;
+}
+
+.contact-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 15px;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-md);
+
+  transition: 0.25s ease;
+}
+
+.contact-item:hover {
+  border-color: rgba(123, 44, 255, 0.5);
+
+  transform: translateX(4px);
+}
+
+.contact-icon {
+  flex-shrink: 0;
+
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: var(--metoa-radius-sm);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(236, 29, 131, 0.12),
+      rgba(123, 44, 255, 0.12)
+    );
+
+  border: 1px solid rgba(123, 44, 255, 0.2);
+
+  font-size: 19px;
+}
+
+.contact-item strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--metoa-text);
+
+  font-size: 14px;
+}
+
+.contact-item span {
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   HOURS CARD
+========================================================= */
+
+.hours-card {
+  margin-top: 25px;
+
+  padding: 22px;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-md);
+
+  box-shadow: var(--metoa-shadow);
+}
+
+.hours-card strong {
+  display: block;
+
+  margin-bottom: 16px;
+
+  color: var(--metoa-text);
+}
+
+.hours-card p {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin: 11px 0;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+}
+
+.hours-card span {
+  color: var(--metoa-text);
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.contact-form-card {
+  padding: 35px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 24, 58, 0.98),
+      rgba(12, 18, 48, 0.98)
+    );
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-lg);
+
+  box-shadow: var(--metoa-shadow);
+}
+
+.form-header h2 {
+  margin: 12px 0 30px;
+
+  color: var(--metoa-text);
+
+  font-size: 27px;
+
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: var(--metoa-text);
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 13px 14px;
+
+  background: #080d29;
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-sm);
+
+  color: var(--metoa-text);
+
+  font: inherit;
+
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #626a8c;
+}
+
+.form-group textarea {
+  resize: vertical;
+
+  min-height: 145px;
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+  border-color: #353c65;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--metoa-purple);
+
+  background: #090e2b;
+
+  box-shadow:
+    0 0 0 3px rgba(123, 44, 255, 0.12);
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.submit-button {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  padding: 14px 20px;
+
+  border: none;
+
+  border-radius: var(--metoa-radius-sm);
+
+  background: var(--metoa-gradient);
+
+  color: white;
+
+  font: inherit;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(123, 44, 255, 0.28);
+}
+
+.submit-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.success-message {
+  margin-bottom: 25px;
+
+  padding: 18px;
+
+  border-radius: var(--metoa-radius-md);
+
+  background: rgba(41, 211, 145, 0.08);
+
+  border: 1px solid rgba(41, 211, 145, 0.25);
+}
+
+.success-icon {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+
+  place-items: center;
+
+  margin-bottom: 10px;
+
+  border-radius: 50%;
+
+  background: rgba(41, 211, 145, 0.15);
+
+  color: var(--metoa-green);
+
+  font-weight: 800;
+}
+
+.success-message strong {
+  display: block;
+
+  color: var(--metoa-green);
+}
+
+.success-message p {
+  margin-top: 7px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error-message {
+  margin-bottom: 20px;
+
+  padding: 13px 15px;
+
+  border-radius: var(--metoa-radius-sm);
+
+  background: rgba(255, 79, 112, 0.08);
+
+  border: 1px solid rgba(255, 79, 112, 0.25);
+
+  color: var(--metoa-red);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq-section {
+  padding: 100px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #05091f,
+      #080d29
+    );
+}
+
+.section-title-center {
+  max-width: 700px;
+
+  margin: 0 auto 50px;
+
+  text-align: center;
+}
+
+.section-title-center h2 {
+  margin: 14px 0 0;
+
+  color: var(--metoa-text);
+
+  font-size: clamp(32px, 4vw, 46px);
+
+  line-height: 1.15;
+}
+
+.section-title-center h2 span {
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.faq-grid {
+  max-width: 850px;
+
+  margin: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.faq-item {
+  overflow: hidden;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-md);
+
+  transition: 0.2s ease;
+}
+
+.faq-item:hover {
+  border-color: #353c65;
+}
+
+.faq-item summary {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 20px 22px;
+
+  cursor: pointer;
+
+  color: var(--metoa-text);
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary span {
+  color: var(--metoa-pink);
+
+  font-size: 22px;
+}
+
+.faq-item p {
+  margin: 0;
+
+  padding: 0 22px 20px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .contact-container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .contact-hero {
+    padding: 65px 0 75px;
+  }
+
+  .contact-hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .contact-hero p {
+    font-size: 15px;
+  }
+
+  .contact-section,
+  .faq-section {
+    padding: 70px 0;
+  }
+
+  .contact-form-card {
+    padding: 24px 20px;
+
+    border-radius: var(--metoa-radius-md);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .hours-card p {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 4px;
+  }
+
+}

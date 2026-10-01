@@ -1,0 +1,343 @@
+<div class="dashboard-page">
+
+  <!-- ================= CONTENU ================= -->
+  <main class="dashboard-content">
+
+    <!-- HERO -->
+    <section class="welcome-section">
+
+      <div class="welcome-text">
+
+        <span class="welcome-badge">
+          ✦ ESPACE VOYAGEUR
+        </span>
+
+        <h1>
+          Bonjour
+          <span>{{ utilisateur?.prenom || 'Voyageur' }}</span> 👋
+        </h1>
+
+        <p>
+          Prêt pour votre prochain voyage ?
+          Trouvez un trajet, réservez votre place et voyagez
+          simplement avec la communauté METOA.
+        </p>
+
+      </div>
+
+      <div class="welcome-action">
+
+        <a
+          routerLink="/client/trajets"
+          class="primary-button"
+        >
+          <span>🔎</span>
+          Rechercher un trajet
+          <span>→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= STATISTIQUES ================= -->
+    <section class="stats-grid">
+
+      <article class="stat-card">
+
+        <div class="stat-icon reservation-icon">
+          📋
+        </div>
+
+        <div class="stat-content">
+          <span>Mes réservations</span>
+          <strong>0</strong>
+          <small>Aucune réservation</small>
+        </div>
+
+        <a
+          routerLink="/client/reservations"
+          class="stat-link"
+        >
+          Voir →
+        </a>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <div class="stat-icon history-icon">
+          🕘
+        </div>
+
+        <div class="stat-content">
+          <span>Trajets effectués</span>
+          <strong>0</strong>
+          <small>Votre historique</small>
+        </div>
+
+        <a
+          routerLink="/client/historique"
+          class="stat-link"
+        >
+          Voir →
+        </a>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <div class="stat-icon message-icon">
+          💬
+        </div>
+
+        <div class="stat-content">
+          <span>Messages</span>
+          <strong>0</strong>
+          <small>Aucun nouveau message</small>
+        </div>
+
+        <a
+          routerLink="/client/messagerie"
+          class="stat-link"
+        >
+          Ouvrir →
+        </a>
+
+      </article>
+
+
+      <article class="stat-card">
+
+        <div class="stat-icon rating-icon">
+          ⭐
+        </div>
+
+        <div class="stat-content">
+          <span>Ma note</span>
+          <strong>—</strong>
+          <small>Pas encore évalué</small>
+        </div>
+
+        <a
+          routerLink="/client/notation"
+          class="stat-link"
+        >
+          Voir →
+        </a>
+
+      </article>
+
+    </section>
+
+
+    <!-- ================= ACTIONS RAPIDES ================= -->
+    <section class="dashboard-section">
+
+      <div class="section-header">
+
+        <div>
+          <span class="section-label">
+            ACCÈS RAPIDE
+          </span>
+
+          <h2>
+            Que souhaitez-vous faire ?
+          </h2>
+        </div>
+
+      </div>
+
+
+      <div class="quick-actions">
+
+        <!-- TRAJETS -->
+        <a
+          routerLink="/client/trajets"
+          class="quick-card"
+        >
+          <div class="quick-icon">
+            🔎
+          </div>
+
+          <div>
+            <h3>Rechercher un trajet</h3>
+            <p>
+              Trouvez un trajet correspondant à votre destination.
+            </p>
+          </div>
+
+          <span class="quick-arrow">→</span>
+        </a>
+
+
+        <!-- RESERVATIONS -->
+        <a
+          routerLink="/client/reservations"
+          class="quick-card"
+        >
+          <div class="quick-icon">
+            🎫
+          </div>
+
+          <div>
+            <h3>Mes réservations</h3>
+            <p>
+              Consultez et gérez vos réservations.
+            </p>
+          </div>
+
+          <span class="quick-arrow">→</span>
+        </a>
+
+
+        <!-- HISTORIQUE -->
+        <a
+          routerLink="/client/historique"
+          class="quick-card"
+        >
+          <div class="quick-icon">
+            🛣️
+          </div>
+
+          <div>
+            <h3>Mon historique</h3>
+            <p>
+              Retrouvez vos anciens trajets.
+            </p>
+          </div>
+
+          <span class="quick-arrow">→</span>
+        </a>
+
+
+        <!-- PROFIL -->
+        <a
+          routerLink="/client/profil"
+          class="quick-card"
+        >
+          <div class="quick-icon">
+            👤
+          </div>
+
+          <div>
+            <h3>Mon profil</h3>
+            <p>
+              Gérez vos informations personnelles.
+            </p>
+          </div>
+
+          <span class="quick-arrow">→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= TRAJETS RECOMMANDÉS ================= -->
+    <section class="dashboard-section">
+
+      <div class="section-header">
+
+        <div>
+          <span class="section-label">
+            DÉCOUVREZ
+          </span>
+
+          <h2>
+            Trajets populaires
+          </h2>
+
+        </div>
+
+        <a
+          routerLink="/client/trajets"
+          class="see-all"
+        >
+          Voir tous les trajets →
+        </a>
+
+      </div>
+
+
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          🚗
+        </div>
+
+        <h3>
+          Aucun trajet recommandé pour le moment
+        </h3>
+
+        <p>
+          Recherchez votre prochaine destination
+          pour découvrir les trajets disponibles.
+        </p>
+
+        <a
+          routerLink="/client/trajets"
+          class="secondary-button"
+        >
+          Rechercher un trajet
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CONSEIL ================= -->
+    <section class="tip-card">
+
+      <div class="tip-icon">
+        💡
+      </div>
+
+      <div class="tip-content">
+
+        <span>
+          CONSEIL METOA
+        </span>
+
+        <h3>
+          Complétez votre profil
+        </h3>
+
+        <p>
+          Ajoutez une photo et vos préférences pour
+          inspirer davantage confiance aux autres voyageurs.
+        </p>
+
+      </div>
+
+      <a
+        routerLink="/client/profil"
+        class="tip-button"
+      >
+        Compléter mon profil →
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="dashboard-footer">
+
+    <span>
+      © {{ 2026 }} METOA
+    </span>
+
+    <span>
+      Voyagez ensemble, simplement.
+    </span>
+
+  </footer>
+
+</div>

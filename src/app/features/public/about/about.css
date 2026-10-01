@@ -1,0 +1,731 @@
+/* =========================================================
+   METOA - À PROPOS
+   DARK DESIGN SYSTEM
+========================================================= */
+
+:host {
+  display: block;
+}
+
+.about-page {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(236, 29, 131, 0.06),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 40%,
+      rgba(123, 44, 255, 0.07),
+      transparent 30%
+    ),
+    var(--metoa-bg);
+
+  color: var(--metoa-text);
+}
+
+.about-container {
+  width: min(1180px, calc(100% - 40px));
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.about-hero {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 90px 0;
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(123, 44, 255, 0.15),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 15% 70%,
+      rgba(236, 29, 131, 0.08),
+      transparent 30%
+    ),
+    var(--metoa-bg);
+}
+
+.about-hero .about-container {
+  display: grid;
+
+  grid-template-columns: 1.35fr 0.65fr;
+
+  align-items: center;
+
+  gap: 70px;
+}
+
+.about-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 8px 15px;
+
+  border-radius: 999px;
+
+  background: rgba(236, 29, 131, 0.08);
+
+  border: 1px solid rgba(236, 29, 131, 0.25);
+
+  color: var(--metoa-pink);
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  margin-bottom: 24px;
+}
+
+.about-hero h1 {
+  margin: 0;
+
+  max-width: 720px;
+
+  font-size: clamp(42px, 6vw, 70px);
+
+  line-height: 1.05;
+
+  letter-spacing: -2px;
+}
+
+.about-hero h1 span {
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.about-hero p {
+  max-width: 650px;
+
+  margin: 28px 0 0;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 18px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   HERO CARD
+========================================================= */
+
+.about-hero-card {
+  min-height: 300px;
+
+  padding: 40px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 24, 58, 0.95),
+      rgba(12, 18, 48, 0.95)
+    );
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: 24px;
+
+  box-shadow: var(--metoa-shadow);
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.about-hero-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  top: -80px;
+  right: -70px;
+
+  border-radius: 50%;
+
+  background: rgba(123, 44, 255, 0.14);
+
+  filter: blur(10px);
+}
+
+.hero-card-icon {
+  position: relative;
+
+  width: 95px;
+  height: 95px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 24px;
+
+  background: var(--metoa-gradient);
+
+  color: white;
+
+  font-size: 48px;
+
+  font-weight: 800;
+
+  margin-bottom: 25px;
+
+  box-shadow:
+    0 18px 45px rgba(123, 44, 255, 0.25);
+}
+
+.about-hero-card strong {
+  position: relative;
+
+  color: var(--metoa-text);
+
+  font-size: 30px;
+}
+
+.about-hero-card span:last-child {
+  position: relative;
+
+  margin-top: 8px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   MISSION
+========================================================= */
+
+.mission-section {
+  padding: 100px 0;
+
+  background: var(--metoa-bg);
+}
+
+.mission-grid {
+  display: grid;
+
+  grid-template-columns: 0.8fr 1.2fr;
+
+  gap: 90px;
+
+  align-items: start;
+}
+
+.section-label {
+  color: var(--metoa-pink);
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+}
+
+.section-heading h2,
+.section-title-center h2 {
+  margin: 14px 0 0;
+
+  color: var(--metoa-text);
+
+  font-size: clamp(32px, 4vw, 48px);
+
+  line-height: 1.15;
+
+  letter-spacing: -1px;
+}
+
+.section-heading h2 span,
+.section-title-center h2 span {
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.mission-content {
+  color: var(--metoa-text-muted);
+
+  font-size: 16px;
+
+  line-height: 1.85;
+}
+
+.mission-content p {
+  margin: 0 0 22px;
+}
+
+
+/* =========================================================
+   VALUES
+========================================================= */
+
+.values-section {
+  padding: 100px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #080d29,
+      #05091f
+    );
+}
+
+.section-title-center {
+  max-width: 700px;
+
+  margin: 0 auto 55px;
+
+  text-align: center;
+}
+
+.section-title-center p {
+  margin: 18px auto 0;
+
+  color: var(--metoa-text-muted);
+
+  line-height: 1.7;
+
+  font-size: 15px;
+}
+
+.values-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+.value-card {
+  padding: 28px 24px;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-md);
+
+  transition: 0.25s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(123, 44, 255, 0.45);
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.value-icon {
+  width: 52px;
+  height: 52px;
+
+  display: grid;
+
+  place-items: center;
+
+  margin-bottom: 22px;
+
+  border-radius: var(--metoa-radius-sm);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(236, 29, 131, 0.12),
+      rgba(123, 44, 255, 0.12)
+    );
+
+  border: 1px solid rgba(123, 44, 255, 0.18);
+
+  color: var(--metoa-pink);
+
+  font-size: 21px;
+}
+
+.value-card h3 {
+  margin: 0 0 10px;
+
+  color: var(--metoa-text);
+
+  font-size: 19px;
+}
+
+.value-card p {
+  margin: 0;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+.how-section {
+  padding: 100px 0;
+
+  background: var(--metoa-bg);
+}
+
+.steps-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+.step-card {
+  display: flex;
+
+  gap: 20px;
+
+  padding: 28px;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-md);
+
+  transition: 0.25s ease;
+}
+
+.step-card:hover {
+  border-color: rgba(236, 29, 131, 0.35);
+
+  transform: translateY(-4px);
+}
+
+.step-number {
+  flex-shrink: 0;
+
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: var(--metoa-radius-sm);
+
+  background: var(--metoa-gradient);
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  box-shadow:
+    0 10px 25px rgba(123, 44, 255, 0.2);
+}
+
+.step-card h3 {
+  margin: 4px 0 10px;
+
+  color: var(--metoa-text);
+
+  font-size: 18px;
+}
+
+.step-card p {
+  margin: 0;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-section {
+  padding: 0 0 100px;
+
+  background: var(--metoa-bg);
+}
+
+.stats-card {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  padding: 40px 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0c1230,
+      #11183a
+    );
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-lg);
+
+  box-shadow: var(--metoa-shadow);
+}
+
+.stat {
+  text-align: center;
+
+  padding: 10px;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--metoa-border);
+}
+
+.stat strong {
+  display: block;
+
+  font-size: 34px;
+
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.stat span {
+  display: block;
+
+  margin-top: 7px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.about-cta {
+  padding: 100px 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(123, 44, 255, 0.12),
+      transparent 45%
+    ),
+    #080d29;
+}
+
+.cta-content {
+  max-width: 720px;
+
+  margin: auto;
+
+  text-align: center;
+}
+
+.cta-content > span {
+  color: var(--metoa-pink);
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.cta-content h2 {
+  margin: 18px 0 15px;
+
+  color: var(--metoa-text);
+
+  font-size: clamp(34px, 5vw, 52px);
+
+  line-height: 1.1;
+}
+
+.cta-content h2 span {
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.cta-content p {
+  color: var(--metoa-text-muted);
+
+  line-height: 1.7;
+}
+
+.cta-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 25px;
+
+  padding: 14px 25px;
+
+  border-radius: var(--metoa-radius-sm);
+
+  background: var(--metoa-gradient);
+
+  color: white;
+
+  text-decoration: none;
+
+  font-weight: 700;
+
+  transition: 0.25s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(123, 44, 255, 0.28);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .about-hero .about-container {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .about-hero-card {
+    min-height: 230px;
+  }
+
+  .mission-grid {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .about-container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .about-hero {
+    padding: 65px 0 75px;
+  }
+
+  .about-hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .about-hero p {
+    font-size: 16px;
+  }
+
+  .about-hero-card {
+    padding: 30px;
+  }
+
+  .mission-section,
+  .values-section,
+  .how-section,
+  .about-cta {
+    padding: 70px 0;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .step-card {
+    padding: 22px;
+  }
+
+  .stats-section {
+    padding-bottom: 70px;
+  }
+
+  .stats-card {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+
+    padding: 30px 15px;
+  }
+
+  .stat + .stat {
+    border-left: none;
+  }
+
+  .stat strong {
+    font-size: 28px;
+  }
+
+}

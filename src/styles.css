@@ -1,0 +1,114 @@
+
+/* =========================================================
+   METOA - GLOBAL DESIGN SYSTEM
+   ========================================================= */
+
+:root {
+  --metoa-bg: #05091f;
+  --metoa-panel: #0c1230;
+  --metoa-panel-light: #11183a;
+
+  --metoa-border: #252b50;
+
+  --metoa-text: #f6f7ff;
+  --metoa-text-muted: #9ba2c3;
+
+  --metoa-pink: #ec1d83;
+  --metoa-purple: #7b2cff;
+
+  --metoa-green: #29d391;
+  --metoa-orange: #ffb52e;
+  --metoa-red: #ff4f70;
+  --metoa-cyan: #42bfff;
+
+  --metoa-radius-sm: 8px;
+  --metoa-radius-md: 14px;
+  --metoa-radius-lg: 20px;
+
+  --metoa-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.25);
+
+  --metoa-gradient:
+    linear-gradient(135deg, var(--metoa-pink), var(--metoa-purple));
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+
+  background: var(--metoa-bg);
+  color: var(--metoa-text);
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+/* =========================================================
+   GLOBAL ELEMENTS
+   ========================================================= */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+
+.metoa-gradient-text {
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.metoa-gradient {
+  background: var(--metoa-gradient);
+}
+
+.metoa-card {
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: var(--metoa-radius-md);
+
+  box-shadow: var(--metoa-shadow);
+}

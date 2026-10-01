@@ -1,0 +1,577 @@
+<div class="register-page">
+
+  <div class="background-glow background-glow-left"></div>
+  <div class="background-glow background-glow-right"></div>
+
+
+  <a routerLink="/" class="back-home">
+    ← Retour à l'accueil
+  </a>
+
+
+  <main class="register-container">
+
+    <!-- INTRODUCTION -->
+
+    <section class="register-intro">
+
+      <div class="brand">
+
+        <span class="brand-icon">
+          <img src="favicon.ico" alt="">
+        </span>
+
+
+
+      </div>
+
+
+      <span class="intro-badge">
+        ✦ Rejoignez la communauté
+      </span>
+
+
+      <h1>
+        Votre prochain
+        <span>voyage commence ici.</span>
+      </h1>
+
+
+      <p>
+        Créez votre compte METOA et découvrez une nouvelle
+        façon de voyager, plus simple, plus humaine et plus conviviale.
+      </p>
+
+
+      <div class="register-stats">
+
+        <div>
+          <strong>
+            100%
+          </strong>
+
+          <span>
+            Simple
+          </span>
+        </div>
+
+
+        <div>
+          <strong>
+            ✓
+          </strong>
+
+          <span>
+            Sécurisé
+          </span>
+        </div>
+
+
+        <div>
+          <strong>
+            ∞
+          </strong>
+
+          <span>
+            Possibilités
+          </span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FORMULAIRE -->
+
+    <section class="register-card">
+
+      <div class="card-header">
+
+        <span class="card-label">
+          CRÉER UN COMPTE
+        </span>
+
+        <h2>
+          Bienvenue chez METOA 👋
+        </h2>
+
+        <p>
+          Remplissez les informations ci-dessous pour commencer.
+        </p>
+
+      </div>
+
+
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="inscription()"
+        novalidate
+      >
+
+        <!-- NOM -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="prenom">
+              Prénom
+            </label>
+
+            <input
+              id="prenom"
+              type="text"
+              formControlName="prenom"
+              placeholder="Votre prénom"
+              autocomplete="given-name"
+            />
+
+            @if (
+              prenom.invalid &&
+              (prenom.touched || formulaireSoumis)
+            ) {
+
+              <small class="error-message">
+
+                @if (prenom.errors?.['required']) {
+                  Le prénom est obligatoire.
+                }
+
+                @if (prenom.errors?.['minlength']) {
+                  Minimum 2 caractères.
+                }
+
+              </small>
+
+            }
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="nom">
+              Nom
+            </label>
+
+            <input
+              id="nom"
+              type="text"
+              formControlName="nom"
+              placeholder="Votre nom"
+              autocomplete="family-name"
+            />
+
+            @if (
+              nom.invalid &&
+              (nom.touched || formulaireSoumis)
+            ) {
+
+              <small class="error-message">
+
+                @if (nom.errors?.['required']) {
+                  Le nom est obligatoire.
+                }
+
+                @if (nom.errors?.['minlength']) {
+                  Minimum 2 caractères.
+                }
+
+              </small>
+
+            }
+
+          </div>
+
+        </div>
+        <!-- date -->
+
+        <div class="form-group">
+
+          <label for="dateNaissance">
+            Date de naissance
+          </label>
+
+          <input
+            id="dateNaissance"
+            type="date"
+            formControlName="dateNaissance"
+            autocomplete="bday"
+          />
+
+          @if (
+            dateNaissance.invalid &&
+            (dateNaissance.touched || formulaireSoumis)
+            ) {
+
+            <small class="error-message">
+
+              @if (dateNaissance.errors?.['required']) {
+                La date de naissance est requise.
+              }
+
+            </small>
+
+          }
+
+        </div>
+
+        <!-- SEXE -->
+        <div class="form-group">
+          <label for="sexe">Sexe</label>
+
+          <select
+            id="sexe"
+            formControlName="sexe"
+          >
+            <option value="">Sélectionnez votre sexe</option>
+            <option value="HOMME">Homme</option>
+            <option value="FEMME">Femme</option>
+            <option value="AUTRE">Autre</option>
+          </select>
+
+          @if (sexe.invalid && (sexe.touched || formulaireSoumis)) {
+            <small class="error-message">
+
+              @if (sexe.errors?.['required']) {
+                Le sexe est obligatoire.
+              }
+
+            </small>
+          }
+        </div>
+
+        <!-- lieux de naissance-->
+        <div class="form-group">
+
+          <label for="lieuNaissance">
+            Lieu de naissance
+          </label>
+
+          <input
+            id="lieuNaissance"
+            type="text"
+            formControlName="lieuNaissance"
+            placeholder="Ville"
+            autocomplete="address-level2"
+          />
+
+        </div>
+
+
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label for="email">
+            Adresse email
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="exemple@email.com"
+            autocomplete="email"
+          />
+
+          @if (
+            email.invalid &&
+            (email.touched || formulaireSoumis)
+          ) {
+
+            <small class="error-message">
+
+              @if (email.errors?.['required']) {
+                L'adresse email est obligatoire.
+              }
+
+              @if (email.errors?.['email']) {
+                Adresse email invalide.
+              }
+
+            </small>
+
+          }
+
+        </div>
+
+
+        <!-- TELEPHONE -->
+
+        <div class="form-group">
+
+          <label for="telephone">
+            Numéro de téléphone
+          </label>
+
+          <input
+            id="telephone"
+            type="tel"
+            formControlName="telephone"
+            placeholder="6 XX XX XX XX"
+            autocomplete="tel"
+          />
+
+          @if (
+            telephone.invalid &&
+            (telephone.touched || formulaireSoumis)
+          ) {
+
+            <small class="error-message">
+
+              @if (telephone.errors?.['required']) {
+                Le numéro de téléphone est obligatoire.
+              }
+
+              @if (telephone.errors?.['minlength']) {
+                Numéro de téléphone invalide.
+              }
+
+            </small>
+
+          }
+
+        </div>
+
+
+        <!-- USERNAME -->
+
+        <div class="form-group">
+
+          <label for="userName">
+            Nom d'utilisateur
+          </label>
+
+          <input
+            id="userName"
+            type="text"
+            formControlName="userName"
+            placeholder="Votre nom d'utilisateur"
+            autocomplete="username"
+          />
+
+          @if (
+            userName.invalid &&
+            (userName.touched || formulaireSoumis)
+          ) {
+
+            <small class="error-message">
+
+              @if (userName.errors?.['required']) {
+                Le nom d'utilisateur est obligatoire.
+              }
+
+              @if (userName.errors?.['minlength']) {
+                Minimum 3 caractères.
+              }
+
+            </small>
+
+          }
+
+        </div>
+
+
+        <!-- MOT DE PASSE -->
+
+        <div class="form-group">
+
+          <label for="motDePasse">
+            Mot de passe
+          </label>
+
+          <div class="password-input">
+
+            <input
+              id="motDePasse"
+              [type]="
+                afficherMotDePasse
+                  ? 'text'
+                  : 'password'
+              "
+              formControlName="motDePasse"
+              placeholder="Minimum 6 caractères"
+              autocomplete="new-password"
+            />
+
+            <button
+              type="button"
+              (click)="basculerMotDePasse()"
+            >
+              {{ afficherMotDePasse ? '◉' : '○' }}
+            </button>
+
+          </div>
+
+
+          @if (
+            motDePasse.invalid &&
+            (motDePasse.touched || formulaireSoumis)
+          ) {
+
+            <small class="error-message">
+
+              @if (motDePasse.errors?.['required']) {
+                Le mot de passe est obligatoire.
+              }
+
+              @if (motDePasse.errors?.['minlength']) {
+                Minimum 6 caractères.
+              }
+
+            </small>
+
+          }
+
+        </div>
+
+
+        <!-- CONFIRMATION -->
+
+        <div class="form-group">
+
+          <label for="confirmationMotDePasse">
+            Confirmer le mot de passe
+          </label>
+
+          <div class="password-input">
+
+            <input
+              id="confirmationMotDePasse"
+              [type]="
+                afficherConfirmation
+                  ? 'text'
+                  : 'password'
+              "
+              formControlName="confirmationMotDePasse"
+              placeholder="Répétez votre mot de passe"
+              autocomplete="new-password"
+            />
+
+            <button
+              type="button"
+              (click)="basculerConfirmation()"
+            >
+              {{ afficherConfirmation ? '◉' : '○' }}
+            </button>
+
+          </div>
+
+
+          @if (
+            confirmationMotDePasse.invalid &&
+            (confirmationMotDePasse.touched || formulaireSoumis)
+          ) {
+
+            <small class="error-message">
+
+              @if (confirmationMotDePasse.errors?.['required']) {
+                La confirmation est obligatoire.
+              }
+
+            </small>
+
+          }
+
+
+          @if (
+            registerForm.errors?.['motsDePasseDifferents'] &&
+            confirmationMotDePasse.touched
+          ) {
+
+            <small class="error-message">
+              Les deux mots de passe ne correspondent pas.
+            </small>
+
+          }
+
+        </div>
+
+
+        <!-- CONDITIONS -->
+
+        <label class="conditions">
+
+          <input
+            type="checkbox"
+            formControlName="accepterConditions"
+          />
+
+          <span class="custom-checkbox"></span>
+
+          <span>
+            J'accepte les conditions d'utilisation
+            et la politique de confidentialité.
+          </span>
+
+        </label>
+
+
+        @if (
+          accepterConditions.invalid &&
+          formulaireSoumis
+        ) {
+
+          <small class="error-message conditions-error">
+            Vous devez accepter les conditions.
+          </small>
+
+        }
+
+
+        <!-- MESSAGE -->
+
+        @if (erreurInscription) {
+
+          <div class="connection-message">
+            {{ erreurInscription }}
+          </div>
+
+        }
+
+
+        <!-- BOUTON -->
+
+        <button
+          type="submit"
+          class="register-button"
+          [disabled]="inscriptionEnCours"
+        >
+          @if (inscriptionEnCours) {
+            <span>Création du compte...</span>
+          } @else {
+            <span>Créer mon compte</span>
+            <span>→</span>
+          }
+        </button>
+
+        <!-- LOGIN -->
+
+        <div class="login-link">
+
+          <span>
+            Vous avez déjà un compte ?
+          </span>
+
+          <a
+            [routerLink]="['/login']"
+            [queryParams]="{
+            returnUrl: getReturnUrl()
+            }"
+          >
+            J'ai déjà un compte
+          </a>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+</div>

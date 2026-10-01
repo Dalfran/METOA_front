@@ -1,0 +1,363 @@
+<div class="contact-page">
+
+  <!-- =====================================================
+       HERO
+  ====================================================== -->
+
+  <section class="contact-hero">
+
+    <div class="contact-container">
+
+      <span class="contact-badge">
+        📞 Contactez-nous
+      </span>
+
+      <h1>
+        Une question ?
+        <span>Parlons-nous.</span>
+      </h1>
+
+      <p>
+        Une question sur METOA, un problème ou simplement
+        besoin d'informations ? Notre équipe est là pour vous.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       CONTACT CONTENT
+  ====================================================== -->
+
+  <section class="contact-section">
+
+    <div class="contact-container contact-grid">
+
+      <!-- INFORMATIONS -->
+
+      <div class="contact-info">
+
+        <span class="section-label">
+          RESTONS EN CONTACT
+        </span>
+
+        <h2>
+          Nous sommes là
+          <span>pour vous aider.</span>
+        </h2>
+
+        <p class="intro">
+          N'hésitez pas à nous contacter. Nous ferons notre
+          possible pour répondre à votre demande rapidement.
+        </p>
+
+
+        <div class="contact-items">
+
+          <div class="contact-item">
+
+            <div class="contact-icon">
+              📍
+            </div>
+
+            <div>
+              <strong>Adresse</strong>
+              <span>Yaoundé, Cameroun</span>
+            </div>
+
+          </div>
+
+
+          <div class="contact-item">
+
+            <div class="contact-icon">
+              ✉
+            </div>
+
+            <div>
+              <strong>Email</strong>
+              <span>dalfran@metoa.cm</span>
+            </div>
+
+          </div>
+
+
+          <div class="contact-item">
+
+            <div class="contact-icon">
+              ☎
+            </div>
+
+            <div>
+              <strong>Téléphone</strong>
+              <span>+237 6 56 09 78 90</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="hours-card">
+
+          <strong>Horaires</strong>
+
+          <p>
+            Lundi – Vendredi
+            <span>08:00 – 18:00</span>
+          </p>
+
+          <p>
+            Samedi
+            <span>09:00 – 15:00</span>
+          </p>
+
+          <p>
+            Dimanche
+            <span>Fermé</span>
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- FORMULAIRE -->
+
+      <div class="contact-form-card">
+
+        <div class="form-header">
+
+          <span class="section-label">
+            ENVOYER UN MESSAGE
+          </span>
+
+          <h2>
+            Comment pouvons-nous
+            vous aider ?
+          </h2>
+
+        </div>
+
+
+        @if (formulaireEnvoye) {
+
+          <div class="success-message">
+
+            <div class="success-icon">
+              ✓
+            </div>
+
+            <strong>
+              Message envoyé !
+            </strong>
+
+            <p>
+              Merci pour votre message. Nous reviendrons
+              vers vous dans les meilleurs délais.
+            </p>
+
+          </div>
+
+        }
+
+
+        @if (erreur) {
+
+          <div class="error-message">
+            {{ erreur }}
+          </div>
+
+        }
+
+
+        <form
+          (ngSubmit)="envoyerMessage()"
+          #contactForm="ngForm"
+        >
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label for="nom">
+                Nom
+              </label>
+
+              <input
+                id="nom"
+                type="text"
+                name="nom"
+                [(ngModel)]="nom"
+                placeholder="Votre nom"
+              />
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="email">
+                Email
+              </label>
+
+              <input
+                id="email"
+                type="email"
+                name="email"
+                [(ngModel)]="email"
+                placeholder="vous@example.com"
+              />
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="sujet">
+              Sujet
+            </label>
+
+            <input
+              id="sujet"
+              type="text"
+              name="sujet"
+              [(ngModel)]="sujet"
+              placeholder="Objet de votre message"
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="message">
+              Message
+            </label>
+
+            <textarea
+              id="message"
+              name="message"
+              [(ngModel)]="message"
+              rows="6"
+              placeholder="Écrivez votre message..."
+            ></textarea>
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="submit-button"
+            [disabled]="contactForm.invalid"
+          >
+            Envoyer le message
+            <span>→</span>
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       FAQ
+  ====================================================== -->
+
+  <section class="faq-section">
+
+    <div class="contact-container">
+
+      <div class="section-title-center">
+
+        <span class="section-label">
+          QUESTIONS FRÉQUENTES
+        </span>
+
+        <h2>
+          Besoin d'une
+          <span>réponse rapide ?</span>
+        </h2>
+
+      </div>
+
+
+      <div class="faq-grid">
+
+        <details class="faq-item">
+
+          <summary>
+            Comment rechercher un trajet ?
+            <span>+</span>
+          </summary>
+
+          <p>
+            Rendez-vous sur la page Trajets puis indiquez
+            votre ville de départ, votre destination et
+            éventuellement votre date de voyage.
+          </p>
+
+        </details>
+
+
+        <details class="faq-item">
+
+          <summary>
+            Comment réserver une place ?
+            <span>+</span>
+          </summary>
+
+          <p>
+            Sélectionnez un trajet disponible puis utilisez
+            le bouton de réservation pour choisir le nombre
+            de places souhaitées.
+          </p>
+
+        </details>
+
+
+        <details class="faq-item">
+
+          <summary>
+            Puis-je annuler une réservation ?
+            <span>+</span>
+          </summary>
+
+          <p>
+            Oui. Vos réservations sont accessibles depuis
+            votre espace personnel et peuvent être annulées
+            selon les règles prévues par METOA.
+          </p>
+
+        </details>
+
+
+        <details class="faq-item">
+
+          <summary>
+            Comment proposer un trajet ?
+            <span>+</span>
+          </summary>
+
+          <p>
+            La fonctionnalité de création de trajets sera
+            disponible dans l'espace chauffeur METOA.
+          </p>
+
+        </details>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

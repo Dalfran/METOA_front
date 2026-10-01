@@ -1,0 +1,1135 @@
+/* =====================================================
+   HERO
+   ===================================================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0 120px;
+}
+
+.hero-container {
+  width: min(1200px, 92%);
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+
+  align-items: center;
+  gap: 70px;
+}
+
+.hero-badge {
+  display: inline-block;
+
+  padding: 8px 14px;
+
+  border-radius: 30px;
+
+  background: rgba(123, 44, 255, 0.12);
+
+  border: 1px solid rgba(123, 44, 255, 0.35);
+
+  color: #c8b7ff;
+
+  font-size: 13px;
+
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  max-width: 700px;
+
+  font-size: clamp(45px, 6vw, 75px);
+
+  line-height: 1.05;
+
+  letter-spacing: -3px;
+}
+
+.hero h1 span {
+  display: block;
+
+  background: var(--metoa-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.hero-content > p {
+  max-width: 570px;
+
+  margin-top: 25px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 17px;
+
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+
+  gap: 14px;
+
+  margin-top: 35px;
+}
+
+.primary-button,
+.secondary-button {
+  padding: 14px 22px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  transition: 0.25s ease;
+}
+
+.primary-button {
+  background: var(--metoa-gradient);
+
+  color: white;
+
+  box-shadow:
+    0 10px 30px rgba(123, 44, 255, 0.3);
+}
+
+.primary-button:hover {
+  transform: translateY(-3px);
+}
+
+.secondary-button {
+  border: 1px solid var(--metoa-border);
+
+  color: var(--metoa-text);
+}
+
+.secondary-button:hover {
+  border-color: var(--metoa-purple);
+}
+
+
+/* =====================================================
+   HERO VISUAL
+   ===================================================== */
+
+.hero-visual {
+  position: relative;
+
+  min-height: 420px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.glow {
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  opacity: 0.3;
+}
+
+.glow-pink {
+  background: var(--metoa-pink);
+
+  top: 30px;
+  right: 20px;
+}
+
+.glow-purple {
+  background: var(--metoa-purple);
+
+  bottom: 20px;
+  left: 30px;
+}
+
+.travel-card {
+  position: relative;
+
+  width: min(440px, 100%);
+
+  padding: 28px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 24, 58, 0.95),
+      rgba(12, 18, 48, 0.95)
+    );
+
+  border: 1px solid var(--metoa-border);
+
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.4);
+
+  backdrop-filter: blur(20px);
+}
+
+.travel-card-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+}
+
+.status {
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  background: rgba(41, 211, 145, 0.1);
+
+  color: var(--metoa-green);
+
+  font-size: 11px;
+}
+
+.route {
+  margin: 35px 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.location {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+.dot {
+  width: 13px;
+  height: 13px;
+
+  border-radius: 50%;
+
+  background: var(--metoa-pink);
+
+  box-shadow:
+    0 0 15px rgba(236, 29, 131, 0.6);
+}
+
+.dot.destination {
+  background: var(--metoa-purple);
+
+  box-shadow:
+    0 0 15px rgba(123, 44, 255, 0.6);
+}
+
+.location small {
+  display: block;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 11px;
+
+  margin-bottom: 4px;
+}
+
+.location strong {
+  font-size: 18px;
+}
+
+.route-line {
+  width: 1px;
+
+  height: 28px;
+
+  margin-left: 6px;
+
+  background:
+    linear-gradient(
+      var(--metoa-pink),
+      var(--metoa-purple)
+    );
+}
+
+.travel-info {
+  padding-top: 20px;
+
+  border-top: 1px solid var(--metoa-border);
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 12px;
+}
+
+.travel-info strong {
+  color: var(--metoa-text);
+
+  font-size: 15px;
+}
+
+
+/* =====================================================
+   SECTIONS
+   ===================================================== */
+
+.features,
+.destinations,
+.popular-trips {
+  width: min(1200px, 92%);
+
+  margin: auto;
+
+  padding: 80px 0;
+}
+
+.popular-trips {
+  padding-bottom: 110px;
+}
+
+.section-heading {
+  text-align: center;
+
+  margin-bottom: 45px;
+}
+
+.section-heading > span {
+  color: var(--metoa-pink);
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+.section-heading h2 {
+  margin-top: 12px;
+
+  font-size: clamp(30px, 4vw, 45px);
+}
+
+.section-heading h2 span {
+  color: var(--metoa-purple);
+}
+
+.section-description {
+  max-width: 600px;
+
+  margin: 15px auto 0;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   FEATURES
+   ===================================================== */
+
+.feature-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+.feature-card {
+  padding: 30px;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: 18px;
+
+  transition: 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+
+  border-color: var(--metoa-purple);
+}
+
+.feature-icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: rgba(123, 44, 255, 0.12);
+
+  font-size: 22px;
+
+  margin-bottom: 22px;
+}
+
+.feature-card h3 {
+  margin-bottom: 10px;
+
+  font-size: 18px;
+}
+
+.feature-card p {
+  color: var(--metoa-text-muted);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   ANCIENNE SECTION DESTINATIONS
+   ===================================================== */
+
+.destination-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.destination-card {
+  padding: 24px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: 16px;
+
+  transition: 0.25s ease;
+}
+
+.destination-card:hover {
+  transform: translateY(-4px);
+
+  border-color: var(--metoa-pink);
+}
+
+.destination-card small {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 10px;
+}
+
+.destination-card strong {
+  font-size: 15px;
+}
+
+.destination-card > span {
+  color: var(--metoa-pink);
+
+  font-size: 22px;
+}
+
+
+/* =====================================================
+   TRAJETS POPULAIRES
+   ===================================================== */
+
+.popular-trips-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+
+/* =====================================================
+   CARTE TRAJET
+   ===================================================== */
+
+.popular-trip-card {
+  position: relative;
+
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 24, 58, 0.95),
+      rgba(12, 18, 48, 0.95)
+    );
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: 20px;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+
+  overflow: hidden;
+}
+
+.popular-trip-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -80px;
+  right: -80px;
+
+  width: 160px;
+  height: 160px;
+
+  border-radius: 50%;
+
+  background: rgba(123, 44, 255, 0.08);
+
+  filter: blur(40px);
+
+  pointer-events: none;
+}
+
+.popular-trip-card:hover {
+  transform: translateY(-6px);
+
+  border-color: var(--metoa-purple);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =====================================================
+   HEADER CARTE
+   ===================================================== */
+
+.trip-card-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 25px;
+}
+
+.trip-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  background: rgba(41, 211, 145, 0.1);
+
+  color: var(--metoa-green);
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+.trip-price {
+  color: var(--metoa-text);
+
+  font-size: 17px;
+
+  font-weight: 800;
+}
+
+
+/* =====================================================
+   ROUTE
+   ===================================================== */
+
+.trip-route {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin-bottom: 25px;
+}
+
+.trip-location {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+}
+
+.trip-dot {
+  flex-shrink: 0;
+
+  width: 12px;
+  height: 12px;
+
+  margin-top: 5px;
+
+  border-radius: 50%;
+}
+
+.trip-dot.departure {
+  background: var(--metoa-pink);
+
+  box-shadow:
+    0 0 14px rgba(236, 29, 131, 0.55);
+}
+
+.trip-dot.destination {
+  background: var(--metoa-purple);
+
+  box-shadow:
+    0 0 14px rgba(123, 44, 255, 0.55);
+}
+
+.trip-location small {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 10px;
+}
+
+.trip-location strong {
+  display: block;
+
+  font-size: 16px;
+}
+
+.trip-address {
+  display: block;
+
+  margin-top: 3px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+.trip-line {
+  width: 1px;
+
+  height: 20px;
+
+  margin-left: 5px;
+
+  background:
+    linear-gradient(
+      var(--metoa-pink),
+      var(--metoa-purple)
+    );
+}
+
+
+/* =====================================================
+   INFORMATIONS TRAJET
+   ===================================================== */
+
+.trip-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 8px;
+
+  padding: 17px 0;
+
+  border-top: 1px solid var(--metoa-border);
+
+  border-bottom: 1px solid var(--metoa-border);
+}
+
+.trip-info > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.info-label {
+  color: var(--metoa-text-muted);
+
+  font-size: 10px;
+}
+
+.trip-info strong {
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   CHAUFFEUR
+   ===================================================== */
+
+.driver {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 18px 0;
+}
+
+.driver-avatar {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--metoa-gradient);
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+.driver-info {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.driver-info span {
+  color: var(--metoa-text-muted);
+
+  font-size: 9px;
+}
+
+.driver-info strong {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 12px;
+}
+
+.driver-rating {
+  margin-left: auto;
+
+  padding: 5px 8px;
+
+  border-radius: 10px;
+
+  background: rgba(255, 193, 7, 0.08);
+
+  color: #ffc107;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+
+/* =====================================================
+   BOUTON DETAILS
+   ===================================================== */
+
+.trip-details-button {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  width: 100%;
+
+  padding: 12px 15px;
+
+  border-radius: 11px;
+
+  background: rgba(123, 44, 255, 0.1);
+
+  border: 1px solid rgba(123, 44, 255, 0.25);
+
+  color: var(--metoa-text);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  transition: 0.25s ease;
+}
+
+.trip-details-button span {
+  color: var(--metoa-pink);
+
+  font-size: 17px;
+
+  transition: transform 0.25s ease;
+}
+
+.trip-details-button:hover {
+  background: rgba(123, 44, 255, 0.18);
+
+  border-color: var(--metoa-purple);
+}
+
+.trip-details-button:hover span {
+  transform: translateX(4px);
+}
+
+
+/* =====================================================
+   CHARGEMENT
+   ===================================================== */
+
+.trips-loading {
+  min-height: 220px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 15px;
+
+  color: var(--metoa-text-muted);
+}
+
+.loading-spinner {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  border: 3px solid var(--metoa-border);
+
+  border-top-color: var(--metoa-pink);
+
+  animation:
+    spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* =====================================================
+   ERREUR
+   ===================================================== */
+
+.trips-error {
+  max-width: 550px;
+
+  margin: auto;
+
+  padding: 25px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 12px;
+
+  text-align: center;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid rgba(236, 29, 131, 0.25);
+
+  border-radius: 16px;
+}
+
+.trips-error > span {
+  font-size: 28px;
+}
+
+.trips-error p {
+  margin: 0;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+}
+
+.retry-button {
+  margin-top: 5px;
+
+  padding: 10px 18px;
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: var(--metoa-text);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.retry-button:hover {
+  border-color: var(--metoa-purple);
+
+  background: rgba(123, 44, 255, 0.1);
+}
+
+
+/* =====================================================
+   AUCUN TRAJET
+   ===================================================== */
+
+.trips-empty {
+  max-width: 550px;
+
+  margin: auto;
+
+  padding: 40px 25px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+
+  background: var(--metoa-panel);
+
+  border: 1px solid var(--metoa-border);
+
+  border-radius: 18px;
+}
+
+.empty-icon {
+  font-size: 38px;
+
+  margin-bottom: 15px;
+}
+
+.trips-empty h3 {
+  margin-bottom: 8px;
+}
+
+.trips-empty p {
+  margin-bottom: 22px;
+
+  color: var(--metoa-text-muted);
+
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   VOIR TOUS LES TRAJETS
+   ===================================================== */
+
+.all-trips-action {
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: 35px;
+}
+
+.all-trips-action .secondary-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.all-trips-action .secondary-button span {
+  color: var(--metoa-pink);
+
+  font-size: 17px;
+}
+
+
+/* =====================================================
+   RESPONSIVE — TABLETTE
+   ===================================================== */
+
+@media (max-width: 1000px) {
+
+  .popular-trips-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE — TABLETTE / PETIT ÉCRAN
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+  .hero-container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-content > p {
+    margin-left: auto;
+
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .feature-grid,
+  .destination-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .popular-trips-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE — MOBILE
+   ===================================================== */
+
+@media (max-width: 500px) {
+
+  .hero {
+    padding-top: 70px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .primary-button,
+  .secondary-button {
+    text-align: center;
+  }
+
+  .travel-info {
+    flex-wrap: wrap;
+
+    gap: 12px;
+  }
+
+  .popular-trips {
+    padding-top: 60px;
+
+    padding-bottom: 80px;
+  }
+
+  .popular-trip-card {
+    padding: 20px;
+  }
+
+  .trip-info {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .trip-price {
+    font-size: 14px;
+  }
+
+  .trip-location strong {
+    font-size: 15px;
+  }
+
+  .section-heading {
+    margin-bottom: 35px;
+  }
+
+}

@@ -1,0 +1,714 @@
+<div class="reservation-detail-page">
+
+  <!-- =====================================================
+       EN-TÊTE
+  ====================================================== -->
+
+  <header class="page-header">
+
+    <div class="header-left">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="allerAuxReservations()"
+      >
+        ←
+        <span>Mes réservations</span>
+      </button>
+
+      <div class="title-block">
+
+        <span class="eyebrow">
+          RÉSERVATION
+        </span>
+
+        <h1>
+          Détails de ma réservation
+        </h1>
+
+        @if (reservation) {
+
+          <p>
+            Réservation #{{ reservation.idReservation }}
+          </p>
+
+        }
+
+      </div>
+
+    </div>
+
+    @if (reservation) {
+
+      <div
+        class="reservation-status"
+        [class]="statutClasse"
+      >
+
+        <span class="status-dot"></span>
+
+        {{ statutLabel }}
+
+      </div>
+
+    }
+
+  </header>
+
+
+  <!-- =====================================================
+       CHARGEMENT
+  ====================================================== -->
+
+  @if (chargement) {
+
+    <div class="loading-container">
+
+      <div class="spinner"></div>
+
+      <h3>
+        Chargement de votre réservation...
+      </h3>
+
+      <p>
+        Nous récupérons les informations de votre réservation.
+      </p>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       ERREUR
+  ====================================================== -->
+
+  @if (!chargement && erreur) {
+
+    <div class="error-container">
+
+      <div class="error-icon">
+        !
+      </div>
+
+      <h2>
+        Oups !
+      </h2>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+      <button
+        type="button"
+        class="primary-button"
+        (click)="chargerReservation()"
+      >
+        Réessayer
+      </button>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       CONTENU PRINCIPAL
+  ====================================================== -->
+
+  @if (!chargement && !erreur && reservation) {
+
+    <div class="content-grid">
+
+      <!-- =================================================
+           COLONNE PRINCIPALE
+      ================================================== -->
+
+      <main class="main-column">
+
+        <!-- ===============================================
+             TRAJET
+        ================================================ -->
+
+        <section class="card trip-card">
+
+          <div class="card-header">
+
+            <div>
+
+              <span class="section-label">
+                VOTRE TRAJET
+              </span>
+
+              <h2>
+                Itinéraire
+              </h2>
+
+            </div>
+
+            <div class="route-icon">
+              🚗
+            </div>
+
+          </div>
+
+
+          <div class="route">
+
+            <div class="route-point">
+
+              <div class="point-marker departure">
+                <span></span>
+              </div>
+
+              <div class="point-content">
+
+                <span class="point-label">
+                  DÉPART
+                </span>
+
+                <strong>
+                  {{ reservation.villeDepart }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="route-line"></div>
+
+
+            <div class="route-point">
+
+              <div class="point-marker destination">
+                <span></span>
+              </div>
+
+              <div class="point-content">
+
+                <span class="point-label">
+                  DESTINATION
+                </span>
+
+                <strong>
+                  {{ reservation.villeDestination }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="trip-details">
+
+            <div class="detail-item">
+
+              <span class="detail-icon">
+                📅
+              </span>
+
+              <div>
+
+                <span>
+                  Date du trajet
+                </span>
+
+                <strong>
+                  {{ reservation.dateDepart | date:'EEEE d MMMM yyyy' }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-icon">
+                🕐
+              </span>
+
+              <div>
+
+                <span>
+                  Heure de départ
+                </span>
+
+                <strong>
+                  {{ reservation.heureDepart }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="outline-button"
+            (click)="allerAuTrajet()"
+          >
+
+            <span>
+              Voir le trajet
+            </span>
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+        </section>
+
+
+        <!-- ===============================================
+             PASSAGER
+        ================================================ -->
+
+        <section class="card passenger-card">
+
+          <div class="card-header">
+
+            <div>
+
+              <span class="section-label">
+                PASSAGER
+              </span>
+
+              <h2>
+                Informations du passager
+              </h2>
+
+            </div>
+
+            <div class="user-icon">
+              👤
+            </div>
+
+          </div>
+
+
+          <div class="passenger-profile">
+
+            <div class="avatar">
+
+              {{ initialesPassager }}
+
+            </div>
+
+            <div class="passenger-info">
+
+              <h3>
+
+                {{ reservation.passagerPrenom }}
+                {{ reservation.passagerNom }}
+
+              </h3>
+
+              <span>
+                Passager METOA
+              </span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===============================================
+             SUCCÈS
+        ================================================ -->
+
+        @if (messageSucces) {
+
+          <div class="success-message">
+
+            <div class="success-icon">
+              ✓
+            </div>
+
+            <div>
+
+              <strong>
+                Opération réussie
+              </strong>
+
+              <p>
+                {{ messageSucces }}
+              </p>
+
+            </div>
+
+          </div>
+
+        }
+
+
+        <!-- ===============================================
+             ERREUR
+        ================================================ -->
+
+        @if (erreurAnnulation) {
+
+          <div class="danger-message">
+
+            <div class="danger-icon">
+              !
+            </div>
+
+            <div>
+
+              <strong>
+                Impossible d'effectuer l'opération
+              </strong>
+
+              <p>
+                {{ erreurAnnulation }}
+              </p>
+
+            </div>
+
+          </div>
+
+        }
+
+      </main>
+
+
+      <!-- =================================================
+           SIDEBAR
+      ================================================== -->
+
+      <aside class="side-column">
+
+        <!-- ===============================================
+             RÉSUMÉ FINANCIER
+        ================================================ -->
+
+        <section class="card summary-card">
+
+          <div class="summary-header">
+
+            <span class="section-label">
+              RÉSUMÉ
+            </span>
+
+            <span
+              class="summary-status"
+              [class]="statutClasse"
+            >
+              {{ statutLabel }}
+            </span>
+
+          </div>
+
+
+          <div class="price-block">
+
+            <span>
+              Prix total
+            </span>
+
+            <strong>
+              {{ prixTotal | number:'1.0-0' }}
+              FCFA
+            </strong>
+
+          </div>
+
+
+          <div class="summary-divider"></div>
+
+
+          <div class="summary-row">
+
+            <span>
+              Prix par place
+            </span>
+
+            <strong>
+              {{ reservation.prix | number:'1.0-0' }}
+              FCFA
+            </strong>
+
+          </div>
+
+
+          <div class="summary-row">
+
+            <span>
+              Nombre de places
+            </span>
+
+            <strong>
+              {{ reservation.nombrePlaces }}
+            </strong>
+
+          </div>
+
+
+          <div class="summary-row">
+
+            <span>
+              Places encore disponibles
+            </span>
+
+            <strong>
+              {{ reservation.placesDisponibles }}
+            </strong>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===============================================
+             INFORMATIONS RÉSERVATION
+        ================================================ -->
+
+        <section class="card info-card">
+
+          <span class="section-label">
+            INFORMATIONS
+          </span>
+
+          <h2>
+            Réservation
+          </h2>
+
+
+          <div class="info-row">
+
+            <span>
+              Référence
+            </span>
+
+            <strong>
+              #{{ reservation.idReservation.slice(0, 8) }}
+            </strong>
+
+          </div>
+
+
+          <div class="info-row">
+
+            <span>
+              Créée le
+            </span>
+
+            <strong>
+              {{ reservation.dateCreation | date:'dd/MM/yyyy à HH:mm' }}
+            </strong>
+
+          </div>
+
+
+          @if (reservation.dateModification) {
+
+            <div class="info-row">
+
+              <span>
+                Modifiée le
+              </span>
+
+              <strong>
+                {{
+                  reservation.dateModification
+                    | date:'dd/MM/yyyy à HH:mm'
+                }}
+              </strong>
+
+            </div>
+
+          }
+
+        </section>
+
+
+        <!-- ===============================================
+             ANNULATION POSSIBLE
+        ================================================ -->
+
+        @if (peutAnnuler) {
+
+          <section class="card action-card">
+
+            <div class="warning-icon">
+              ⚠
+            </div>
+
+            <h3>
+              Annuler la réservation ?
+            </h3>
+
+            <p>
+              Vous pouvez annuler cette réservation.
+              Les places seront alors de nouveau disponibles
+              sur le trajet.
+            </p>
+
+            <button
+              type="button"
+              class="cancel-button"
+              (click)="ouvrirConfirmationAnnulation()"
+              [disabled]="annulationEnCours"
+            >
+
+              Annuler ma réservation
+
+            </button>
+
+          </section>
+
+        }
+
+
+        <!-- ===============================================
+             RÉSERVATION ANNULÉE
+        ================================================ -->
+
+        @if (reservation.statut === 'ANNULEE') {
+
+          <section class="card cancelled-card">
+
+            <div class="cancelled-icon">
+              ✓
+            </div>
+
+            <h3>
+              Réservation annulée
+            </h3>
+
+            <p>
+              Cette réservation n'est plus active.
+            </p>
+
+          </section>
+
+        }
+
+
+        <!-- ===============================================
+             RÉSERVATION REFUSÉE
+        ================================================ -->
+
+        @if (reservation.statut === 'REFUSEE') {
+
+          <section class="card refused-card">
+
+            <div class="refused-icon">
+              !
+            </div>
+
+            <h3>
+              Réservation refusée
+            </h3>
+
+            <p>
+              Cette réservation a été refusée.
+            </p>
+
+          </section>
+
+        }
+
+      </aside>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       MODAL CONFIRMATION ANNULATION
+  ====================================================== -->
+
+  @if (confirmationAnnulation) {
+
+    <div
+      class="modal-overlay"
+      (click)="fermerConfirmationAnnulation()"
+    >
+
+      <div
+        class="confirmation-modal"
+        (click)="$event.stopPropagation()"
+      >
+
+        <div class="modal-icon">
+          ⚠
+        </div>
+
+        <h2>
+          Annuler la réservation ?
+        </h2>
+
+        <p>
+          Êtes-vous sûr de vouloir annuler cette réservation ?
+        </p>
+
+        <p class="modal-warning">
+          Cette action modifiera le statut de votre réservation
+          et les places seront libérées sur le trajet.
+        </p>
+
+
+        @if (erreurAnnulation) {
+
+          <div class="modal-error">
+            {{ erreurAnnulation }}
+          </div>
+
+        }
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="fermerConfirmationAnnulation()"
+            [disabled]="annulationEnCours"
+          >
+            Conserver ma réservation
+          </button>
+
+
+          <button
+            type="button"
+            class="danger-button"
+            (click)="confirmerAnnulation()"
+            [disabled]="annulationEnCours"
+          >
+
+            @if (annulationEnCours) {
+
+              <span class="button-spinner"></span>
+
+              Annulation...
+
+            } @else {
+
+              Oui, annuler
+
+            }
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

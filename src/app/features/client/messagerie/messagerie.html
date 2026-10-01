@@ -1,0 +1,1149 @@
+<div class="messagerie-page">
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="messagerie-header">
+
+    <div class="header-left">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="retour()"
+        aria-label="Retour"
+      >
+        ←
+      </button>
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          M
+        </div>
+
+        <div>
+          <div class="brand-name">
+            METOA
+          </div>
+
+          <div class="brand-subtitle">
+            Messagerie
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ===================================================
+         ÉTAT WEBSOCKET
+    ==================================================== -->
+
+    <div class="connection-status">
+
+      <span
+        class="status-dot"
+        [class.online]="connecte"
+      ></span>
+
+      <span>
+        {{ connecte ? 'Connecté' : 'Connexion...' }}
+      </span>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       CORPS
+  ====================================================== -->
+
+  <main class="messagerie-layout">
+
+    <!-- ===================================================
+         SIDEBAR
+    ==================================================== -->
+
+    <aside class="conversation-sidebar">
+
+      <div class="sidebar-header">
+
+        <div>
+
+          <h1>
+            Messages
+          </h1>
+
+          <span>
+            {{ conversations.length }}
+            conversation{{ conversations.length > 1 ? 's' : '' }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           RECHERCHE
+      ================================================== -->
+
+      <div class="search-box">
+
+        <span class="search-icon">
+          🔎
+        </span>
+
+        <input
+          type="text"
+          [(ngModel)]="recherche"
+          placeholder="Rechercher une conversation..."
+        />
+
+      </div>
+
+
+      <!-- =================================================
+           CHARGEMENT DES CONVERSATIONS
+      ================================================== -->
+
+      @if (chargementConversations) {
+
+        <div class="sidebar-loading">
+
+          <div class="loading-spinner"></div>
+
+          <span>
+            Chargement...
+          </span>
+
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           LISTE DES CONVERSATIONS
+      ================================================== -->
+
+      @if (!chargementConversations) {
+
+        <div class="conversation-list">
+
+          @for (
+            conversation of conversationsFiltrees;
+            track conversation.conversationId || conversation.otherUserId
+            ) {
+
+            <button
+              type="button"
+              class="conversation-item"
+
+              [class.active]="
+                conversationActive?.conversationId ===
+                conversation.conversationId
+              "
+
+              (click)="ouvrirConversation(conversation)"
+            >
+
+              <!-- =========================================
+                   AVATAR
+              ========================================== -->
+
+              <div class="avatar">
+
+                @if (getPhotoUtilisateur(conversation.otherUserPhoto)) {
+                  <img
+                    [src]="getPhotoUtilisateur(conversation.otherUserPhoto)!"
+                    [alt]="conversation.otherUsername"
+                  />
+                } @else {
+                  <span>
+                    {{ initiales(conversation.otherUsername) }}
+                  </span>
+                }
+
+
+                <!-- =======================================
+                     PRÉSENCE
+                ======================================== -->
+
+                @if (
+                  estUtilisateurEnLigne(
+                    conversation.otherUserId
+                  )
+                  ) {
+
+                  <span
+                    class="online-indicator"
+                  ></span>
+
+                }
+
+              </div>
+
+
+              <!-- =========================================
+                   INFORMATIONS CONVERSATION
+              ========================================== -->
+
+              <div class="conversation-content">
+
+                <div class="conversation-top">
+
+                  <strong>
+                    {{ conversation.otherUsername }}
+                  </strong>
+
+                  <small>
+                    {{
+                      formatDateConversation(
+                        conversation.lastMessageDate
+                      )
+                    }}
+                  </small>
+
+                </div>
+
+
+                <div class="conversation-bottom">
+
+                  <span class="last-message">
+
+                    {{
+                      conversation.lastMessage ||
+                      'Nouvelle conversation'
+                    }}
+
+                  </span>
+
+
+                  @if (conversation.unreadCount > 0) {
+
+                    <span class="unread-badge">
+
+                      {{
+                        conversation.unreadCount > 99
+                          ? '99+'
+                          : conversation.unreadCount
+                      }}
+
+                    </span>
+
+                  }
+
+                </div>
+
+              </div>
+
+            </button>
+
+          }
+
+
+          <!-- =================================================
+               AUCUNE CONVERSATION
+          ================================================== -->
+
+          @if (conversationsFiltrees.length === 0) {
+
+            <div class="empty-conversations">
+
+              <div class="empty-icon">
+                💬
+              </div>
+
+              <strong>
+                Aucune conversation
+              </strong>
+
+              <span>
+                Vos conversations apparaîtront ici.
+              </span>
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+
+    </aside>
+
+
+    <!-- ===================================================
+         ZONE CHAT
+    ==================================================== -->
+
+    <section class="chat-panel">
+
+
+      <!-- =================================================
+           AUCUNE CONVERSATION SÉLECTIONNÉE
+      ================================================== -->
+
+      @if (!conversationActive) {
+
+        <div class="empty-chat">
+
+          <div class="empty-chat-icon">
+            💬
+          </div>
+
+          <h2>
+            Votre messagerie METOA
+          </h2>
+
+          <p>
+            Sélectionnez une conversation
+            pour commencer à échanger.
+          </p>
+
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           CONVERSATION ACTIVE
+      ================================================== -->
+
+      @if (conversationActive) {
+
+        <!-- ===============================================
+             CHAT HEADER
+        ================================================ -->
+
+        <header class="chat-header">
+
+          <div class="chat-user">
+
+            <!-- =========================================
+                 AVATAR UTILISATEUR ACTIF
+            ========================================== -->
+
+            <div class="avatar large">
+
+              @if (getPhotoUtilisateur(conversationActive.otherUserPhoto)) {
+                <img
+                  [src]="getPhotoUtilisateur(conversationActive.otherUserPhoto)!"
+                  [alt]="conversationActive.otherUsername"
+                />
+              } @else {
+                <span>
+                {{ initiales(conversationActive.otherUsername || '') }}
+              </span>
+              }
+
+
+
+              <!-- =======================================
+                   PRÉSENCE UTILISATEUR ACTIF
+              ======================================== -->
+
+              @if (
+                estUtilisateurEnLigne(
+                  conversationActive.otherUserId
+                )
+                ) {
+
+                <span
+                  class="online-indicator"
+                ></span>
+
+              }
+
+            </div>
+
+
+            <!-- =========================================
+                 INFORMATIONS UTILISATEUR
+            ========================================== -->
+
+            <div class="chat-user-info">
+
+              <h2>
+                {{ conversationActive.otherUsername }}
+              </h2>
+
+
+              <!-- =========================================
+                   TYPING
+              ========================================== -->
+
+              @if (utilisateurEnTrainDEcrire) {
+
+                <div class="typing-status">
+
+                  <span class="typing-text">
+                    {{ autreUtilisateurEnTrainDEcrire }}
+                    est en train d'écrire
+                  </span>
+
+                  <span class="typing-dots">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                  </span>
+
+                </div>
+
+              }
+
+
+              <!-- =========================================
+                   EN LIGNE
+              ========================================== -->
+
+              @else if (
+                estUtilisateurEnLigne(
+                  conversationActive.otherUserId
+                )
+                ) {
+
+                <span class="online-status">
+
+                  <span class="online-dot"></span>
+
+                  En ligne
+
+                </span>
+
+              }
+
+
+              <!-- =========================================
+                   HORS LIGNE
+              ========================================== -->
+
+              @else {
+
+                <span class="offline-status">
+
+                  <span class="offline-dot"></span>
+
+                  Hors ligne
+
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               OPTIONS CONVERSATION
+          ============================================== -->
+
+          <button
+            type="button"
+            class="chat-more"
+            aria-label="Options de conversation"
+          >
+            ⋮
+          </button>
+
+        </header>
+
+
+        <!-- ===============================================
+             MESSAGES
+        ================================================ -->
+
+        <div
+          #messagesContainer
+          class="messages-container"
+        >
+
+          <!-- =============================================
+               CHARGEMENT DES MESSAGES
+          ============================================== -->
+
+          @if (chargementMessages) {
+
+            <div class="messages-loading">
+
+              <div class="loading-spinner"></div>
+
+              <span>
+                Chargement des messages...
+              </span>
+
+            </div>
+
+          }
+
+
+          <!-- =============================================
+               AUCUN MESSAGE
+          ============================================== -->
+
+          @if (
+            !chargementMessages &&
+            messages.length === 0
+            ) {
+
+            <div class="conversation-welcome">
+
+              <div class="welcome-avatar">
+
+                {{
+                  initiales(
+                    conversationActive.otherUsername
+                  )
+                }}
+
+              </div>
+
+              <h3>
+                {{ conversationActive.otherUsername }}
+              </h3>
+
+              <p>
+                Vous pouvez maintenant commencer
+                la conversation.
+              </p>
+
+            </div>
+
+          }
+
+
+          <!-- =============================================
+               LISTE DES MESSAGES
+          ============================================== -->
+
+          @for (
+            message of messages;
+            track message.messageId
+            ) {
+
+            <div
+              class="message-row"
+
+              [class.mine]="
+                estMonMessage(message)
+              "
+
+              [class.theirs]="
+                !estMonMessage(message)
+              "
+            >
+
+              <div class="message-content-wrapper">
+
+                <!-- =======================================
+                     BULLE MESSAGE
+                ======================================== -->
+
+                <div
+                  class="message-bubble"
+
+                  [class.deleted-message]="
+                    message.deleted
+                  "
+
+                  [class.edited-message]="
+                    message.edited &&
+                    !message.deleted
+                  "
+                >
+
+                  <!-- =====================================
+                       MESSAGE SUPPRIMÉ
+                  ====================================== -->
+
+                  @if (message.deleted) {
+
+                    <p class="message-text deleted-text">
+                      {{ message.content || 'Message supprimé' }}
+                    </p>
+
+                  } @else {
+
+                    <!-- ===================================
+                         TEXTE
+                    ==================================== -->
+
+                    @if (message.content) {
+
+                      <p class="message-text">
+                        {{ message.content }}
+                      </p>
+
+                    }
+
+
+                    <!-- ===================================
+                         PIÈCE JOINTE
+                    ==================================== -->
+
+                    @if (message.attachment) {
+
+                      <div class="message-attachment">
+
+                        <!-- ===============================
+                             IMAGE
+                        ================================= -->
+
+                        @if (message.type === 'IMAGE') {
+
+                          <a
+                            [href]="
+                              'http://localhost:8089' +
+                              message.attachment.fileUrl
+                            "
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="message-image-link"
+                          >
+
+                            <img
+                              class="message-image"
+
+                              [src]="
+                                'http://localhost:8089' +
+                                message.attachment.fileUrl
+                              "
+
+                              [alt]="
+                                message.attachment.fileName ||
+                                'Image envoyée'
+                              "
+                            />
+
+                          </a>
+
+                        }
+
+                        <!-- ===============================
+                             FICHIER
+                        ================================= -->
+
+                        @else {
+
+                          <a
+                            [href]="
+                              'http://localhost:8089' +
+                              message.attachment.fileUrl
+                            "
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="message-file"
+                          >
+
+                            <span class="message-file-icon">
+                              📄
+                            </span>
+
+                            <span class="message-file-details">
+
+                              <strong>
+                                {{
+                                  message.attachment.fileName ||
+                                  'Fichier'
+                                }}
+                              </strong>
+
+                              @if (message.attachment.fileSize) {
+
+                                <small>
+                                  {{
+                                    message.attachment.fileSize / 1024
+                                      | number:'1.0-0'
+                                  }}
+                                  Ko
+                                </small>
+
+                              }
+
+                            </span>
+
+                          </a>
+
+                        }
+
+                      </div>
+
+                    }
+
+                  }
+
+
+                  <!-- =====================================
+                       MODIFIÉ
+                  ====================================== -->
+
+                  @if (
+                    message.edited &&
+                    !message.deleted
+                    ) {
+
+                    <span class="edited-label">
+                      modifié
+                    </span>
+
+                  }
+
+
+                  <!-- =====================================
+                       META MESSAGE
+                  ====================================== -->
+
+                  <div class="message-meta">
+
+                    <span>
+                      {{
+                        formatDate(
+                          message.timestamp
+                        )
+                      }}
+                    </span>
+
+
+                    <!-- =================================
+                         STATUT MESSAGE
+                    ================================== -->
+
+                    @if (estMonMessage(message)) {
+
+                      <span class="message-status">
+
+                        @switch (message.status) {
+
+                          @case ('ENVOYE') {
+
+                            <span>
+                              ✓
+                            </span>
+
+                          }
+
+                          @case ('DELIVRE') {
+
+                            <span>
+                              ✓✓
+                            </span>
+
+                          }
+
+                          @case ('LU') {
+
+                            <span class="read">
+                              ✓✓
+                            </span>
+
+                          }
+
+                        }
+
+                      </span>
+
+                    }
+
+                  </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     ACTIONS MESSAGE
+                ====================================== -->
+
+                @if (
+                  estMonMessage(message) &&
+                  !message.deleted
+                  ) {
+
+                  <div class="message-actions">
+
+                    <button
+                      type="button"
+                      class="message-actions-button"
+
+                      (click)="
+                        toggleMessageMenu(
+                          message.messageId
+                        )
+                      "
+
+                      aria-label="Actions du message"
+                    >
+                      ⋮
+                    </button>
+
+
+                    @if (
+                      messageMenuOuvert ===
+                      message.messageId
+                      ) {
+
+                      <div class="message-actions-menu">
+
+                        <button
+                          type="button"
+
+                          (click)="
+                            commencerModification(message);
+                            messageMenuOuvert = null
+                          "
+                        >
+                          <span>✏️</span>
+                          Modifier
+                        </button>
+
+
+                        <button
+                          type="button"
+                          class="delete-action"
+
+                          (click)="
+                            supprimerMessage(message);
+                            messageMenuOuvert = null
+                          "
+                        >
+                          <span>🗑️</span>
+                          Supprimer
+                        </button>
+
+                      </div>
+
+                    }
+
+                  </div>
+
+                }
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- ===============================================
+             BARRE DE MODIFICATION
+        ================================================ -->
+
+        @if (messageEnEdition) {
+
+          <div class="edit-message-bar">
+
+            <div class="edit-message-info">
+
+              <span class="edit-icon">
+                ✏️
+              </span>
+
+              <div>
+
+                <strong>
+                  Modifier le message...
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="send-button"
+
+              (click)="annulerModification()"
+
+              aria-label="Annuler la modification"
+            >
+              ×
+            </button>
+
+          </div>
+
+
+          <!-- =============================================
+               CHAMP MODIFICATION
+          ============================================== -->
+
+          <div class="message-composer">
+
+            <textarea
+              [(ngModel)]="contenuMessageEnEdition"
+
+              (keydown.enter)="
+                $event.preventDefault();
+                modifierMessage()
+              "
+
+              placeholder="Modifier votre message..."
+
+              [disabled]="
+                modificationMessageEnCours
+              "
+            ></textarea>
+
+
+            <button
+              type="button"
+              class="send-button"
+
+              [disabled]="
+                !contenuMessageEnEdition.trim() ||
+                modificationMessageEnCours
+              "
+
+              (click)="modifierMessage()"
+
+              title="Enregistrer la modification"
+            >
+
+              @if (modificationMessageEnCours) {
+
+                <span class="loading-spinner small"></span>
+
+              } @else {
+
+                ✓
+
+              }
+
+            </button>
+
+          </div>
+
+        }
+
+
+        <!-- ===============================================
+             COMPOSER NORMAL
+        ================================================ -->
+
+        @else {
+
+          <footer class="message-composer">
+
+            <!-- ===========================================
+                 PRÉVISUALISATION PIÈCE JOINTE
+            ============================================ -->
+
+            @if (fichierSelectionne) {
+
+              <div class="attachment-preview">
+
+                @if (apercuFichier) {
+
+                  <div class="attachment-image-preview">
+
+                    <img
+                      [src]="apercuFichier"
+                      [alt]="fichierSelectionne.name"
+                    />
+
+                  </div>
+
+                } @else {
+
+                  <div class="attachment-file-preview">
+
+                    <span class="attachment-file-icon">
+                      📄
+                    </span>
+
+                    <div class="attachment-file-info">
+
+                      <strong>
+                        {{ fichierSelectionne.name }}
+                      </strong>
+
+                      <span>
+                        {{
+                          fichierSelectionne.size / 1024
+                            | number:'1.0-0'
+                        }}
+                        Ko
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                }
+
+
+                <button
+                  type="button"
+                  class="remove-attachment-button"
+
+                  (click)="annulerFichier()"
+
+                  aria-label="Annuler la pièce jointe"
+                >
+                  ✕
+                </button>
+
+              </div>
+
+            }
+
+
+            <!-- ===========================================
+                 LIGNE DU COMPOSER
+            ============================================ -->
+
+            <div class="composer-row">
+
+              <!-- =========================================
+                   INPUT FICHIER
+              ========================================== -->
+
+              <input
+                #messageFileInput
+                id="message-file-input"
+
+                type="file"
+
+                hidden
+
+                accept="
+                  image/jpeg,
+                  image/png,
+                  image/webp,
+                  application/pdf,
+                  text/plain,
+                  .doc,
+                  .docx,
+                  .xls,
+                  .xlsx
+                "
+
+                (change)="selectionnerFichier($event)"
+              />
+
+
+              <!-- =========================================
+                   BOUTON PIÈCE JOINTE
+              ========================================== -->
+
+              <button
+                type="button"
+                class="attachment-button"
+
+                (click)="messageFileInput.click()"
+
+                [disabled]="
+                  uploadEnCours ||
+                  !connecte
+                "
+
+                aria-label="Joindre un fichier"
+              >
+                📎
+              </button>
+
+
+              <!-- =========================================
+                   CHAMP MESSAGE
+              ========================================== -->
+
+              <textarea
+                [(ngModel)]="messageContent"
+
+                (input)="gererSaisie()"
+
+                (keydown)="gererToucheClavier($event)"
+
+                placeholder="Écrivez votre message..."
+
+                [disabled]="
+                  envoiEnCours ||
+                  uploadEnCours ||
+                  !connecte
+                "
+              ></textarea>
+
+
+              <!-- =========================================
+                   BOUTON ENVOYER
+              ========================================== -->
+
+              <button
+                type="button"
+                class="send-button"
+
+                [disabled]="
+                  envoiEnCours ||
+                  uploadEnCours ||
+                  !connecte ||
+                  (
+                    !messageContent.trim() &&
+                    !fichierSelectionne
+                  )
+                "
+
+                (click)="envoyerMessage()"
+
+                title="Envoyer"
+              >
+
+                @if (uploadEnCours) {
+
+                  <span class="loading-spinner small"></span>
+
+                } @else {
+
+                  ➤
+
+                }
+
+              </button>
+
+            </div>
+
+          </footer>
+
+        }
+
+      }
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       MESSAGE D'ERREUR
+  ====================================================== -->
+
+  @if (erreur) {
+
+    <div class="error-toast">
+
+      <span>
+        ⚠️ {{ erreur }}
+      </span>
+
+      <button
+        type="button"
+
+        (click)="erreur = ''"
+
+        aria-label="Fermer"
+      >
+        ×
+      </button>
+
+    </div>
+
+  }
+
+</div>

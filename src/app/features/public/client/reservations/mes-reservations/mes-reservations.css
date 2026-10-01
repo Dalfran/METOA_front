@@ -1,0 +1,578 @@
+/* =========================================================
+   PAGE
+========================================================= */
+
+.reservations-page {
+  min-height: 100%;
+  padding: 32px;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 25px;
+  margin-bottom: 32px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.eyebrow,
+.section-label {
+  color: #ec1d83;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.header-content p {
+  margin: 0;
+  color: #858dab;
+  font-size: 14px;
+}
+
+.search-button,
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 18px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    #7b2cff,
+    #ec1d83
+  );
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.search-button span {
+  font-size: 18px;
+}
+
+.search-button:hover,
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(123, 44, 255, 0.25);
+}
+
+
+/* =========================================================
+   STATISTIQUES
+========================================================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 35px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 19px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 17px;
+  background: #0c1230;
+}
+
+.stat-icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.stat-icon.purple {
+  background: rgba(123, 44, 255, 0.12);
+  color: #9b68ff;
+}
+
+.stat-icon.green {
+  background: rgba(69, 213, 140, 0.1);
+  color: #45d58c;
+}
+
+.stat-icon.grey {
+  background: rgba(146, 153, 180, 0.1);
+  color: #9299b4;
+}
+
+.stat-card div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-card span {
+  color: #777f9e;
+  font-size: 11px;
+}
+
+.stat-card strong {
+  font-size: 22px;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.reservations-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.section-heading h2 {
+  margin: 6px 0 0;
+  font-size: 21px;
+}
+
+.count-badge {
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #8c93ac;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.reservations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.reservation-card {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  background: #0c1230;
+  transition: 0.2s ease;
+}
+
+.reservation-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(123, 44, 255, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.reservation-date {
+  width: 62px;
+  height: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(123, 44, 255, 0.09);
+  border: 1px solid rgba(123, 44, 255, 0.13);
+}
+
+.date-day {
+  font-size: 23px;
+  font-weight: 850;
+}
+
+.date-month {
+  color: #ec1d83;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   ROUTE
+========================================================= */
+
+.reservation-main {
+  min-width: 0;
+}
+
+.route {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.route-location {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.route-location div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.route-label {
+  color: #6f7692;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.route-location strong {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.route-dot {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  border: 2px solid;
+  border-radius: 50%;
+}
+
+.route-dot.departure {
+  color: #7b2cff;
+}
+
+.route-dot.destination {
+  color: #ec1d83;
+}
+
+.route-line {
+  width: 35px;
+  height: 1px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    #7b2cff,
+    #ec1d83
+  );
+}
+
+
+/* =========================================================
+   META
+========================================================= */
+
+.reservation-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.reservation-meta span {
+  color: #7e86a2;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   STATUT + DETAILS
+========================================================= */
+
+.reservation-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-pending {
+  color: #f0a83c;
+  background: rgba(240, 168, 60, 0.1);
+}
+
+.status-confirmed {
+  color: #45d58c;
+  background: rgba(69, 213, 140, 0.1);
+}
+
+.status-cancelled {
+  color: #9299b4;
+  background: rgba(146, 153, 180, 0.1);
+}
+
+.status-refused {
+  color: #ff5d73;
+  background: rgba(255, 93, 115, 0.1);
+}
+
+.details-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #c2c7d8;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.details-button:hover {
+  color: #ec1d83;
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-state {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.spinner {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top-color: #ec1d83;
+  border-right-color: #7b2cff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-state h3 {
+  margin: 0 0 7px;
+  font-size: 16px;
+}
+
+.loading-state p {
+  margin: 0;
+  color: #777f9e;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-state,
+.error-state {
+  min-height: 430px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  background: #0c1230;
+}
+
+.empty-icon,
+.error-icon {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  font-size: 27px;
+}
+
+.empty-icon {
+  background: rgba(123, 44, 255, 0.1);
+}
+
+.error-icon {
+  background: rgba(255, 93, 115, 0.1);
+  color: #ff5d73;
+  font-weight: 800;
+}
+
+.empty-state h2,
+.error-state h2 {
+  margin: 0 0 9px;
+  font-size: 21px;
+}
+
+.empty-state p,
+.error-state p {
+  max-width: 470px;
+  margin: 0 0 23px;
+  color: #777f9e;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.retry-button {
+  border: none;
+  padding: 12px 22px;
+  border-radius: 11px;
+  background: linear-gradient(
+    90deg,
+    #7b2cff,
+    #ec1d83
+  );
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .reservation-card {
+    grid-template-columns: 60px minmax(0, 1fr);
+  }
+
+  .reservation-status {
+    grid-column: 2;
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .reservations-page {
+    padding: 22px 15px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .header-content h1 {
+    font-size: 26px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .reservation-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .reservation-date {
+    width: 58px;
+    height: 58px;
+  }
+
+  .route {
+    flex-wrap: wrap;
+  }
+
+  .route-line {
+    width: 20px;
+  }
+
+  .reservation-status {
+    grid-column: auto;
+    align-items: flex-start;
+  }
+
+}
+
+
+@media (max-width: 450px) {
+
+  .reservation-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+}

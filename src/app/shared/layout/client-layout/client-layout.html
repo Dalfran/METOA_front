@@ -1,0 +1,197 @@
+<div class="client-layout">
+
+  <!-- =====================================================
+       HEADER CLIENT
+  ====================================================== -->
+
+  <header class="client-header">
+
+    <div class="client-header-inner">
+
+      <!-- =================================================
+           LOGO
+      ================================================== -->
+
+      <a
+        routerLink="/client/dashboard"
+        class="brand"
+      >
+
+        <span class="brand-icon">
+
+          <img
+            src="favicon.ico"
+            alt="METOA"
+          >
+
+        </span>
+
+        <span class="brand-name">
+          METOA
+        </span>
+
+      </a>
+
+
+      <!-- =================================================
+           BOUTON MENU MOBILE
+           CSS ONLY — aucune logique TS nécessaire
+      ================================================== -->
+
+      <input
+        type="checkbox"
+        id="client-menu-toggle"
+        class="client-menu-toggle"
+      >
+
+      <label
+        for="client-menu-toggle"
+        class="menu-toggle-button"
+        aria-label="Ouvrir le menu"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </label>
+
+
+      <!-- =================================================
+           NAVIGATION
+      ================================================== -->
+
+      <nav class="client-nav">
+
+        <a
+          routerLink="/client/dashboard"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link"
+        >
+          <span class="nav-icon">⌂</span>
+          <span>Tableau de bord</span>
+        </a>
+
+
+        <a
+          routerLink="/client/trajets"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="nav-link"
+        >
+          <span class="nav-icon">🚗</span>
+          <span>Trajets</span>
+        </a>
+
+
+        <a
+          routerLink="/client/reservations"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="nav-link"
+        >
+          <span class="nav-icon">▣</span>
+          <span>Réservations</span>
+        </a>
+
+
+        <a
+          routerLink="/client/messagerie"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="nav-link"
+        >
+          <span class="nav-icon">💬</span>
+          <span>Messages</span>
+        </a>
+
+
+        <a
+          routerLink="/client/profil"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="nav-link"
+        >
+          <span class="nav-icon">👤</span>
+          <span>Mon profil</span>
+        </a>
+
+      </nav>
+
+
+      <!-- =================================================
+     NOTIFICATIONS
+================================================== -->
+
+      <div class="client-notifications">
+        <app-notifications></app-notifications>
+      </div>
+
+
+      <!-- =================================================
+           UTILISATEUR
+      ================================================== -->
+
+      <div class="client-user">
+
+        <div class="user-avatar">
+
+          @if (getPhotoProfilUrl()) {
+
+            <img
+              [src]="getPhotoProfilUrl()!"
+              [alt]="nomComplet"
+              class="user-avatar-image"
+            />
+
+          } @else {
+
+            <span>
+      {{ initiale }}
+    </span>
+
+          }
+
+        </div>
+
+        <div class="user-info">
+
+          <strong>
+            {{ nomComplet }}
+          </strong>
+
+          <span>
+            {{ utilisateur?.role || 'PASSAGER' }}
+          </span>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="logout-button"
+          (click)="deconnexion()"
+          title="Déconnexion"
+        >
+          ⎋
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       CONTENU CLIENT
+  ====================================================== -->
+
+  <main class="client-content">
+
+    <router-outlet></router-outlet>
+
+  </main>
+
+</div>

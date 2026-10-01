@@ -1,0 +1,1920 @@
+<div class="profil-page">
+
+  <!-- ========================================================= -->
+  <!-- HEADER -->
+  <!-- ========================================================= -->
+
+  <section class="profil-header">
+
+    <div class="profil-title">
+
+      <span class="section-label">
+        MON ESPACE
+      </span>
+
+      <h1>
+        Mon profil
+      </h1>
+
+      <p>
+        Consultez et gérez vos informations personnelles.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- CHARGEMENT -->
+  <!-- ========================================================= -->
+
+  @if (chargement && !utilisateur) {
+
+    <section class="profil-card loading-card">
+
+      <div class="loading-spinner"></div>
+
+      <p>
+        Chargement de votre profil...
+      </p>
+
+    </section>
+
+  }
+
+
+  <!-- ========================================================= -->
+  <!-- ERREUR -->
+  <!-- ========================================================= -->
+
+  @if (!chargement && erreur) {
+
+    <section class="profil-card error-card">
+
+      <div class="error-icon">
+        ⚠️
+      </div>
+
+      <h3>
+        Impossible de charger votre profil
+      </h3>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+    </section>
+
+  }
+
+
+  <!-- ========================================================= -->
+  <!-- PROFIL -->
+  <!-- ========================================================= -->
+
+  @if (!chargement && !erreur && utilisateur) {
+
+
+    <!-- ======================================================= -->
+      <!-- PHOTO DE COUVERTURE -->
+      <!-- ======================================================= -->
+
+    <section class="profil-cover-card">
+
+      <div class="profil-cover-container">
+
+
+        <!-- =================================================== -->
+        <!-- IMAGE DE COUVERTURE -->
+        <!-- =================================================== -->
+
+        @if (coverApercu) {
+
+          <img
+            class="profil-cover-image"
+            [src]="coverApercu"
+            alt="Photo de couverture"
+          />
+
+        } @else if (getCoverPhotoProfilUrl()) {
+
+          <!-- Photo enregistrée en base -->
+          <img
+            [src]="getCoverPhotoProfilUrl()!"
+            alt="Photo de couverture"
+            class="profil-cover-image"
+            (error)="erreurChargementCover()"
+          />
+
+
+        } @else {
+
+          <!-- =============================================== -->
+            <!-- COUVERTURE PAR DÉFAUT -->
+            <!-- =============================================== -->
+
+          <div class="profil-cover-placeholder">
+
+            <div class="cover-placeholder-content">
+
+              <span class="cover-placeholder-icon">
+                ✨
+              </span>
+
+              <span>
+                Ajoutez une photo de couverture
+              </span>
+
+            </div>
+
+          </div>
+
+        }
+
+
+        <!-- =================================================== -->
+        <!-- OVERLAY -->
+        <!-- =================================================== -->
+
+        <div class="profil-cover-overlay"></div>
+
+
+        <!-- =================================================== -->
+        <!-- CONTENU DE LA COUVERTURE -->
+        <!-- =================================================== -->
+
+        <div class="profil-cover-content">
+
+
+          <!-- =============================================== -->
+          <!-- TITRE -->
+          <!-- =============================================== -->
+
+          <div class="cover-information">
+
+            <span class="cover-label">
+              PHOTO DE COUVERTURE
+            </span>
+
+            <p>
+              Personnalisez votre profil METOA
+            </p>
+
+          </div>
+
+
+          <!-- =============================================== -->
+          <!-- ACTIONS -->
+          <!-- =============================================== -->
+
+          <div class="cover-actions">
+
+
+            <!-- ============================================= -->
+            <!-- CHOISIR UNE COUVERTURE -->
+            <!-- ============================================= -->
+
+            <label class="cover-upload-button">
+
+              📷
+
+              <span>
+                {{
+                  coverSelectionnee
+                    ? 'Changer la couverture'
+                    : 'Choisir une couverture'
+                }}
+              </span>
+
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                (change)="selectionnerCover($event)"
+                hidden
+              />
+
+            </label>
+
+
+            <!-- ============================================= -->
+            <!-- ENREGISTRER -->
+            <!-- ============================================= -->
+
+            @if (coverSelectionnee) {
+
+              <button
+                type="button"
+                class="cover-save-button"
+                (click)="uploaderCover()"
+                [disabled]="uploadCoverEnCours"
+              >
+
+                @if (uploadCoverEnCours) {
+
+                  <span>
+                    ⏳ Envoi...
+                  </span>
+
+                } @else {
+
+                  <span>
+                    💾 Enregistrer
+                  </span>
+
+                }
+
+              </button>
+
+            }
+
+
+            <!-- ============================================= -->
+            <!-- SUPPRIMER -->
+            <!-- ============================================= -->
+
+            @if (
+              utilisateur.coverPhotoUrl &&
+              !coverSelectionnee
+              ) {
+
+              <button
+                type="button"
+                class="cover-delete-button"
+                (click)="supprimerCover()"
+                [disabled]="suppressionCoverEnCours"
+              >
+
+                @if (suppressionCoverEnCours) {
+
+                  <span>
+                    ⏳ Suppression...
+                  </span>
+
+                } @else {
+
+                  <span>
+                    🗑️ Supprimer
+                  </span>
+
+                }
+
+              </button>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================== -->
+        <!-- ERREUR COUVERTURE -->
+        <!-- =================================================== -->
+
+        @if (erreurCover) {
+
+          <div class="cover-message cover-error">
+
+            ⚠️ {{ erreurCover }}
+
+          </div>
+
+        }
+
+
+        <!-- =================================================== -->
+        <!-- SUCCÈS COUVERTURE -->
+        <!-- =================================================== -->
+
+        @if (messageCover) {
+
+          <div class="cover-message cover-success">
+
+            ✅ {{ messageCover }}
+
+          </div>
+
+        }
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ======================================================= -->
+      <!-- GRILLE PRINCIPALE -->
+      <!-- ======================================================= -->
+
+    <section class="profil-grid">
+
+
+      <!-- ===================================================== -->
+      <!-- CARTE IDENTITÉ -->
+      <!-- ===================================================== -->
+
+      <article class="profil-card identity-card">
+
+
+        <!-- =================================================== -->
+        <!-- IDENTITÉ -->
+        <!-- =================================================== -->
+
+        <div class="identity-top">
+
+          <div class="profil-avatar-container">
+
+            @if (photoApercu) {
+
+              <img
+                class="profil-avatar-image"
+                [src]="photoApercu"
+                alt="Photo de profil"
+              />
+
+            } @else if (getPhotoProfilUrl()) {
+
+              <img
+                class="profil-avatar-image"
+                [src]="getPhotoProfilUrl()!"
+                alt="Photo de profil"
+                (error)="erreurChargementPhoto()"
+              />
+
+            } @else {
+
+              <div class="profil-avatar">
+
+                {{ utilisateur.prenom.charAt(0).toUpperCase() }}
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <div class="identity-info">
+
+            <h2>
+
+              {{ utilisateur.prenom }}
+              {{ utilisateur.nom }}
+
+            </h2>
+
+            <span class="role-badge">
+
+              {{ utilisateur.role }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- =================================================== -->
+        <!-- PHOTO DE PROFIL -->
+        <!-- =================================================== -->
+
+        <div class="photo-profile-section">
+
+          <div class="photo-profile-title">
+
+            <span class="information-label">
+              PHOTO DE PROFIL
+            </span>
+
+            <p>
+              Ajoutez une photo pour personnaliser votre profil.
+            </p>
+
+          </div>
+
+
+          <div class="photo-actions">
+
+
+            <!-- CHOISIR -->
+
+            <label class="photo-upload-button">
+
+              📷
+
+              <span>
+                {{
+                  photoSelectionnee
+                    ? 'Changer la photo'
+                    : 'Choisir une photo'
+                }}
+              </span>
+
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                (change)="selectionnerPhoto($event)"
+                hidden
+              />
+
+            </label>
+
+
+            <!-- ENREGISTRER -->
+
+            @if (photoSelectionnee) {
+
+              <button
+                type="button"
+                class="photo-save-button"
+                (click)="uploaderPhoto()"
+                [disabled]="uploadPhotoEnCours"
+              >
+
+                @if (uploadPhotoEnCours) {
+
+                  <span>
+                    ⏳ Envoi...
+                  </span>
+
+                } @else {
+
+                  <span>
+                    💾 Enregistrer
+                  </span>
+
+                }
+
+              </button>
+
+            }
+
+
+            <!-- SUPPRIMER -->
+
+            @if (
+              utilisateur.photoUrl &&
+              !photoSelectionnee
+              ) {
+
+              <button
+                type="button"
+                class="photo-delete-button"
+                (click)="supprimerPhoto()"
+                [disabled]="suppressionPhotoEnCours"
+              >
+
+                @if (suppressionPhotoEnCours) {
+
+                  <span>
+                    ⏳ Suppression...
+                  </span>
+
+                } @else {
+
+                  <span>
+                    🗑️ Supprimer
+                  </span>
+
+                }
+
+              </button>
+
+            }
+
+          </div>
+
+
+          <!-- ERREUR -->
+
+          @if (erreurPhoto) {
+
+            <div class="photo-error">
+
+              ⚠️ {{ erreurPhoto }}
+
+            </div>
+
+          }
+
+
+          <!-- SUCCÈS -->
+
+          @if (messagePhoto) {
+
+            <div class="photo-success">
+
+              ✅ {{ messagePhoto }}
+
+            </div>
+
+          }
+
+        </div>
+
+
+
+        <!-- =================================================== -->
+        <!-- STATUT -->
+        <!-- =================================================== -->
+
+        <div class="identity-status">
+
+          <span class="status-dot"></span>
+
+          Compte {{ utilisateur.statusUser }}
+
+        </div>
+
+      </article>
+
+
+
+      <!-- ===================================================== -->
+      <!-- CARTE INFORMATIONS PERSONNELLES -->
+      <!-- ===================================================== -->
+
+      <article class="profil-card information-card">
+
+
+        <!-- HEADER -->
+
+        <div class="card-header">
+
+          <div>
+
+            <span class="section-label">
+              INFORMATIONS PERSONNELLES
+            </span>
+
+            <h2>
+              Mes informations
+            </h2>
+
+          </div>
+
+
+          @if (!modeEdition) {
+
+            <button
+              type="button"
+              class="edit-button"
+              (click)="modifierProfil()"
+            >
+
+              ✏️ Modifier
+
+            </button>
+
+          }
+
+        </div>
+
+
+
+        <!-- =================================================== -->
+        <!-- MODE CONSULTATION -->
+        <!-- =================================================== -->
+
+        @if (!modeEdition) {
+
+          <div class="information-grid">
+
+
+            <!-- PRÉNOM -->
+
+            <div class="information-item">
+
+              <span class="information-label">
+                Prénom
+              </span>
+
+              <strong>
+                {{ utilisateur.prenom }}
+              </strong>
+
+            </div>
+
+
+            <!-- NOM -->
+
+            <div class="information-item">
+
+              <span class="information-label">
+                Nom
+              </span>
+
+              <strong>
+                {{ utilisateur.nom }}
+              </strong>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="information-item">
+
+              <span class="information-label">
+                Adresse email
+              </span>
+
+              <strong>
+                {{ utilisateur.email }}
+              </strong>
+
+            </div>
+
+
+            <!-- TÉLÉPHONE -->
+
+            <div class="information-item">
+
+              <span class="information-label">
+                Téléphone
+              </span>
+
+              <strong>
+                {{ utilisateur.telephone || 'Non renseigné' }}
+              </strong>
+
+            </div>
+
+
+            <!-- SEXE -->
+
+            <div class="information-item">
+
+              <span class="information-label">
+                Sexe
+              </span>
+
+              <strong>
+                {{ utilisateur.sexe || 'Non renseigné' }}
+              </strong>
+
+            </div>
+
+
+            <!-- RÔLE -->
+
+            <div class="information-item">
+
+              <span class="information-label">
+                Rôle
+              </span>
+
+              <strong>
+                {{ utilisateur.role }}
+              </strong>
+
+            </div>
+
+
+            <!-- STATUT -->
+
+            <div class="information-item">
+
+              <span class="information-label">
+                Statut du compte
+              </span>
+
+              <strong>
+                {{ utilisateur.statusUser }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        }
+
+
+
+        <!-- =================================================== -->
+        <!-- MODE ÉDITION -->
+        <!-- =================================================== -->
+
+        @if (modeEdition) {
+
+          <form
+            class="profil-form"
+            [formGroup]="profilForm"
+            (ngSubmit)="enregistrerModifications()"
+          >
+
+
+            <!-- PRÉNOM -->
+
+            <div class="form-group">
+
+              <label for="prenom">
+                Prénom
+              </label>
+
+              <input
+                id="prenom"
+                type="text"
+                formControlName="prenom"
+                placeholder="Votre prénom"
+              />
+
+              @if (prenom.invalid && prenom.touched) {
+
+                <small class="form-error">
+                  Le prénom est obligatoire.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- NOM -->
+
+            <div class="form-group">
+
+              <label for="nom">
+                Nom
+              </label>
+
+              <input
+                id="nom"
+                type="text"
+                formControlName="nom"
+                placeholder="Votre nom"
+              />
+
+              @if (nom.invalid && nom.touched) {
+
+                <small class="form-error">
+                  Le nom est obligatoire.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+              <label for="email">
+                Adresse email
+              </label>
+
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                placeholder="exemple@email.com"
+              />
+
+              @if (email.invalid && email.touched) {
+
+                <small class="form-error">
+                  Veuillez saisir une adresse email valide.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- TÉLÉPHONE -->
+
+            <div class="form-group">
+
+              <label for="telephone">
+                Téléphone
+              </label>
+
+              <input
+                id="telephone"
+                type="tel"
+                formControlName="telephone"
+                placeholder="Votre numéro de téléphone"
+              />
+
+              @if (telephone.invalid && telephone.touched) {
+
+                <small class="form-error">
+                  Le numéro de téléphone est obligatoire.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- SEXE -->
+
+            <div class="form-group">
+
+              <label for="sexe">
+                Sexe
+              </label>
+
+              <select
+                id="sexe"
+                formControlName="sexe"
+              >
+
+                <option value="">
+                  Sélectionnez votre sexe
+                </option>
+
+                <option value="HOMME">
+                  Homme
+                </option>
+
+                <option value="FEMME">
+                  Femme
+                </option>
+
+                <option value="AUTRE">
+                  Autre
+                </option>
+
+              </select>
+
+              @if (sexe.invalid && sexe.touched) {
+
+                <small class="form-error">
+                  Veuillez sélectionner votre sexe.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="form-actions">
+
+              <button
+                type="button"
+                class="cancel-button"
+                (click)="annulerModification()"
+                [disabled]="modificationEnCours"
+              >
+
+                Annuler
+
+              </button>
+
+
+              <button
+                type="submit"
+                class="save-button"
+                [disabled]="modificationEnCours"
+              >
+
+                @if (modificationEnCours) {
+
+                  <span>
+                    ⏳ Enregistrement...
+                  </span>
+
+                } @else {
+
+                  <span>
+                    💾 Enregistrer
+                  </span>
+
+                }
+
+              </button>
+
+            </div>
+
+          </form>
+
+        }
+
+
+        <!-- MESSAGE SUCCÈS -->
+
+        @if (messageSucces) {
+
+          <div class="success-message">
+
+            ✅ {{ messageSucces }}
+
+          </div>
+
+        }
+
+      </article>
+
+    </section>
+
+
+
+    <!-- ======================================================= -->
+      <!-- SÉCURITÉ DU COMPTE -->
+      <!-- ======================================================= -->
+
+    <section class="securite-section">
+
+      <article class="profil-card security-card">
+
+
+        <!-- HEADER -->
+
+        <div class="card-header">
+
+          <div>
+
+            <span class="section-label">
+              SÉCURITÉ
+            </span>
+
+            <h2>
+              Mot de passe
+            </h2>
+
+            <p>
+              Modifiez régulièrement votre mot de passe pour sécuriser
+              votre compte METOA.
+            </p>
+
+          </div>
+
+
+          @if (!modeModificationMotDePasse) {
+
+            <button
+              type="button"
+              class="edit-button"
+              (click)="modifierMotDePasse()"
+            >
+
+              🔐 Modifier le mot de passe
+
+            </button>
+
+          }
+
+        </div>
+
+
+
+        <!-- =================================================== -->
+        <!-- FORMULAIRE MOT DE PASSE -->
+        <!-- =================================================== -->
+
+        @if (modeModificationMotDePasse) {
+
+          <form
+            class="profil-form password-form"
+            [formGroup]="motDePasseForm"
+            (ngSubmit)="enregistrerNouveauMotDePasse()"
+          >
+
+
+            <!-- ANCIEN MOT DE PASSE -->
+
+            <div class="form-group">
+
+              <label for="ancienPasse">
+                Ancien mot de passe
+              </label>
+
+              <input
+                id="ancienPasse"
+                type="password"
+                formControlName="ancienPasse"
+                placeholder="Votre ancien mot de passe"
+              />
+
+              @if (
+                ancienPasse.invalid &&
+                ancienPasse.touched
+                ) {
+
+                <small class="form-error">
+
+                  L'ancien mot de passe est obligatoire.
+
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- NOUVEAU MOT DE PASSE -->
+
+            <div class="form-group">
+
+              <label for="nouveauPasse">
+                Nouveau mot de passe
+              </label>
+
+              <input
+                id="nouveauPasse"
+                type="password"
+                formControlName="nouveauPasse"
+                placeholder="Votre nouveau mot de passe"
+              />
+
+              @if (
+                nouveauPasse.invalid &&
+                nouveauPasse.touched
+                ) {
+
+                @if (nouveauPasse.errors?.['required']) {
+
+                  <small class="form-error">
+                    Le nouveau mot de passe est obligatoire.
+                  </small>
+
+                } @else if (
+                  nouveauPasse.errors?.['minlength']
+                  ) {
+
+                  <small class="form-error">
+                    Le mot de passe doit contenir au moins
+                    6 caractères.
+                  </small>
+
+                } @else if (
+                  nouveauPasse.errors?.['maxlength']
+                  ) {
+
+                  <small class="form-error">
+                    Le mot de passe ne peut pas dépasser
+                    100 caractères.
+                  </small>
+
+                }
+
+              }
+
+            </div>
+
+
+            <!-- CONFIRMATION -->
+
+            <div class="form-group">
+
+              <label for="confirmationPasse">
+                Confirmer le nouveau mot de passe
+              </label>
+
+              <input
+                id="confirmationPasse"
+                type="password"
+                formControlName="confirmationPasse"
+                placeholder="Confirmez votre nouveau mot de passe"
+              />
+
+              @if (
+                confirmationPasse.invalid &&
+                confirmationPasse.touched
+                ) {
+
+                <small class="form-error">
+                  La confirmation du mot de passe est obligatoire.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="form-actions">
+
+              <button
+                type="button"
+                class="cancel-button"
+                (click)="annulerModificationMotDePasse()"
+                [disabled]="modificationMotDePasseEnCours"
+              >
+
+                Annuler
+
+              </button>
+
+
+              <button
+                type="submit"
+                class="save-button"
+                [disabled]="modificationMotDePasseEnCours"
+              >
+
+                @if (modificationMotDePasseEnCours) {
+
+                  <span>
+                    ⏳ Modification...
+                  </span>
+
+                } @else {
+
+                  <span>
+                    🔐 Modifier le mot de passe
+                  </span>
+
+                }
+
+              </button>
+
+            </div>
+
+          </form>
+
+        }
+
+
+
+        <!-- SUCCÈS -->
+
+        @if (messageSuccesMotDePasse) {
+
+          <div class="success-message">
+
+            ✅ {{ messageSuccesMotDePasse }}
+
+          </div>
+
+        }
+
+
+        <!-- ERREUR -->
+
+        @if (erreurMotDePasse) {
+
+          <div class="error-message">
+
+            ⚠️ {{ erreurMotDePasse }}
+
+          </div>
+
+        }
+
+      </article>
+
+    </section>
+
+
+
+    <!-- ======================================================= -->
+      <!-- PROFIL PASSAGER -->
+      <!-- ======================================================= -->
+
+    <section class="profil-passager-section">
+
+
+      <!-- HEADER PASSAGER -->
+
+      <div class="passager-section-header">
+
+        <div>
+
+          <span class="section-label">
+            ESPACE PASSAGER
+          </span>
+
+          <h2>
+            Mon profil passager
+          </h2>
+
+          <p>
+            Gérez vos informations de voyage et vos préférences.
+          </p>
+
+        </div>
+
+
+        @if (
+          profilPassager &&
+          !modeEditionPassager
+          ) {
+
+          <button
+            type="button"
+            class="edit-button"
+            (click)="modifierProfilPassager()"
+          >
+
+            ✏️ Modifier
+
+          </button>
+
+        }
+
+      </div>
+
+
+
+      <!-- =================================================== -->
+      <!-- CHARGEMENT PROFIL PASSAGER -->
+      <!-- =================================================== -->
+
+      @if (chargementProfilPassager) {
+
+        <div class="profil-card passager-loading">
+
+          <div class="loading-spinner"></div>
+
+          <p>
+            Chargement de votre profil passager...
+          </p>
+
+        </div>
+
+      }
+
+
+
+      <!-- =================================================== -->
+      <!-- PROFIL PASSAGER INEXISTANT -->
+      <!-- =================================================== -->
+
+      @if (
+        !chargementProfilPassager &&
+        !profilPassager &&
+        !modeEditionPassager
+        ) {
+
+        <div class="profil-card passager-empty">
+
+          <div class="empty-icon">
+            🚌
+          </div>
+
+          <h3>
+            Votre profil passager n'est pas encore configuré
+          </h3>
+
+          <p>
+            Complétez votre profil pour personnaliser votre expérience
+            sur METOA.
+          </p>
+
+          <button
+            type="button"
+            class="primary-button"
+            (click)="creerProfilPassager()"
+          >
+
+            Créer mon profil passager
+
+          </button>
+
+        </div>
+
+      }
+
+
+
+      <!-- =================================================== -->
+      <!-- PROFIL PASSAGER EXISTANT -->
+      <!-- =================================================== -->
+
+      @if (
+        !chargementProfilPassager &&
+        profilPassager &&
+        !modeEditionPassager
+        ) {
+
+        <div class="passager-grid">
+
+
+          <!-- =============================================== -->
+          <!-- STATISTIQUES -->
+          <!-- =============================================== -->
+
+          <article class="profil-card passager-stats-card">
+
+            <div class="card-header">
+
+              <div>
+
+                <span class="section-label">
+                  MES STATISTIQUES
+                </span>
+
+                <h2>
+                  Mon activité
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div class="passager-stats">
+
+
+              <!-- VOYAGES -->
+
+              <div class="stat-item">
+
+                <span class="stat-icon">
+                  🚌
+                </span>
+
+                <div>
+
+                  <strong>
+                    {{ profilPassager.nombreVoyagesEffectues ?? 0 }}
+                  </strong>
+
+                  <span>
+                    Voyages effectués
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <!-- NOTE -->
+
+              <div class="stat-item">
+
+                <span class="stat-icon">
+                  ⭐
+                </span>
+
+                <div>
+
+                  <strong>
+                    {{ profilPassager.noteMoyenne ?? 0 | number:'1.1-1' }}
+                  </strong>
+
+                  <span>
+                    Note moyenne
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <!-- VÉRIFICATION -->
+
+              <div class="stat-item">
+
+                <span class="stat-icon">
+                  ✓
+                </span>
+
+                <div>
+
+                  <strong>
+                    {{ profilPassager.profilVerifie ? 'Oui' : 'Non' }}
+                  </strong>
+
+                  <span>
+                    Profil vérifié
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <!-- ÉTAT -->
+
+              <div class="stat-item">
+
+                <span class="stat-icon">
+                  ●
+                </span>
+
+                <div>
+
+                  <strong>
+                    {{ profilPassager.actif ? 'Actif' : 'Inactif' }}
+                  </strong>
+
+                  <span>
+                    État du profil
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+
+          <!-- =============================================== -->
+          <!-- INFORMATIONS PASSAGER -->
+          <!-- =============================================== -->
+
+          <article class="profil-card passager-info-card">
+
+            <div class="card-header">
+
+              <div>
+
+                <span class="section-label">
+                  MES PRÉFÉRENCES
+                </span>
+
+                <h2>
+                  Informations de voyage
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div class="information-grid">
+
+
+              <!-- ADRESSE -->
+
+              <div class="information-item">
+
+                <span class="information-label">
+                  Adresse
+                </span>
+
+                <strong>
+                  {{ profilPassager.adresse }}
+                </strong>
+
+              </div>
+
+
+              <!-- URGENCE -->
+
+              <div class="information-item">
+
+                <span class="information-label">
+                  Contact d'urgence
+                </span>
+
+                <strong>
+                  {{ profilPassager.numeroUrgence }}
+                </strong>
+
+              </div>
+
+
+              <!-- BAGAGE -->
+
+              <div class="information-item">
+
+                <span class="information-label">
+                  Type de bagage
+                </span>
+
+                <strong>
+                  {{ profilPassager.typeBagageHabituel }}
+                </strong>
+
+              </div>
+
+
+              <!-- PAIEMENT -->
+
+              <div class="information-item">
+
+                <span class="information-label">
+                  Moyen de paiement
+                </span>
+
+                <strong>
+                  {{ profilPassager.moyenPaiementPrefere }}
+                </strong>
+
+              </div>
+
+
+              <!-- FRÉQUENCE -->
+
+              <div class="information-item">
+
+                <span class="information-label">
+                  Fréquence de voyage
+                </span>
+
+                <strong>
+                  {{ profilPassager.frequenceVoyage || 'Non renseignée' }}
+                </strong>
+
+              </div>
+
+
+              <!-- PRÉFÉRENCES -->
+
+              <div class="information-item">
+
+                <span class="information-label">
+                  Préférences
+                </span>
+
+                <strong>
+                  {{ profilPassager.preferences }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <!-- BIO -->
+
+            @if (profilPassager.bio) {
+
+              <div class="passager-bio">
+
+                <span class="information-label">
+                  Ma bio
+                </span>
+
+                <p>
+                  {{ profilPassager.bio }}
+                </p>
+
+              </div>
+
+            }
+
+          </article>
+
+        </div>
+
+      }
+
+
+
+      <!-- =================================================== -->
+      <!-- FORMULAIRE PROFIL PASSAGER -->
+      <!-- =================================================== -->
+
+      @if (modeEditionPassager) {
+
+        <article class="profil-card passager-form-card">
+
+
+          <div class="card-header">
+
+            <div>
+
+              <span class="section-label">
+                CONFIGURATION
+              </span>
+
+              <h2>
+
+                {{
+                  profilPassager
+                    ? 'Modifier mon profil passager'
+                    : 'Créer mon profil passager'
+                }}
+
+              </h2>
+
+            </div>
+
+          </div>
+
+
+
+          <form
+            class="profil-form"
+            [formGroup]="profilPassagerForm"
+            (ngSubmit)="enregistrerProfilPassager()"
+          >
+
+
+            <!-- ADRESSE -->
+
+            <div class="form-group">
+
+              <label for="adressePassager">
+                Adresse
+              </label>
+
+              <input
+                id="adressePassager"
+                type="text"
+                formControlName="adresse"
+                placeholder="Votre adresse"
+              />
+
+              @if (
+                adressePassager.invalid &&
+                adressePassager.touched
+                ) {
+
+                <small class="form-error">
+                  L'adresse est obligatoire.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- BIO -->
+
+            <div class="form-group full-width">
+
+              <label for="bioPassager">
+                Bio
+              </label>
+
+              <textarea
+                id="bioPassager"
+                formControlName="bio"
+                rows="4"
+                maxlength="500"
+                placeholder="Présentez-vous en quelques mots..."
+              ></textarea>
+
+              @if (
+                bioPassager.invalid &&
+                bioPassager.touched
+                ) {
+
+                <small class="form-error">
+                  La bio ne doit pas dépasser 500 caractères.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- PRÉFÉRENCES -->
+
+            <div class="form-group">
+
+              <label for="preferencesPassager">
+                Préférences
+              </label>
+
+              <input
+                id="preferencesPassager"
+                type="text"
+                formControlName="preferences"
+                placeholder="Ex : musique, discussion, calme..."
+              />
+
+              @if (
+                preferencesPassager.invalid &&
+                preferencesPassager.touched
+                ) {
+
+                <small class="form-error">
+                  Les préférences sont obligatoires.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- NUMÉRO D'URGENCE -->
+
+            <div class="form-group">
+
+              <label for="numeroUrgencePassager">
+                Numéro d'urgence
+              </label>
+
+              <input
+                id="numeroUrgencePassager"
+                type="tel"
+                formControlName="numeroUrgence"
+                placeholder="Numéro à contacter"
+              />
+
+              @if (
+                numeroUrgencePassager.invalid &&
+                numeroUrgencePassager.touched
+                ) {
+
+                <small class="form-error">
+                  Le numéro d'urgence est obligatoire.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- BAGAGE -->
+
+            <div class="form-group">
+
+              <label for="typeBagagePassager">
+                Type de bagage habituel
+              </label>
+
+              <select
+                id="typeBagagePassager"
+                formControlName="typeBagageHabituel"
+              >
+
+                <option value="">
+                  Sélectionnez
+                </option>
+
+                <option value="AUCUN">
+                  Aucun
+                </option>
+
+                <option value="PETIT">
+                  Petit bagage
+                </option>
+
+                <option value="MOYEN">
+                  Bagage moyen
+                </option>
+
+                <option value="GRAND">
+                  Grand bagage
+                </option>
+
+              </select>
+
+              @if (
+                typeBagagePassager.invalid &&
+                typeBagagePassager.touched
+                ) {
+
+                <small class="form-error">
+                  Sélectionnez votre type de bagage.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- PAIEMENT -->
+
+            <div class="form-group">
+
+              <label for="moyenPaiementPassager">
+                Moyen de paiement préféré
+              </label>
+
+              <select
+                id="moyenPaiementPassager"
+                formControlName="moyenPaiementPrefere"
+              >
+
+                <option value="">
+                  Sélectionnez
+                </option>
+
+                <option value="ESPECES">
+                  Espèces
+                </option>
+
+                <option value="MOBILE_MONEY">
+                  Mobile Money
+                </option>
+
+                <option value="VIREMENT">
+                  Virement
+                </option>
+
+              </select>
+
+              @if (
+                moyenPaiementPassager.invalid &&
+                moyenPaiementPassager.touched
+                ) {
+
+                <small class="form-error">
+                  Sélectionnez un moyen de paiement.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- FRÉQUENCE -->
+
+            <div class="form-group">
+
+              <label for="frequenceVoyagePassager">
+                Fréquence de voyage
+              </label>
+
+              <select
+                id="frequenceVoyagePassager"
+                formControlName="frequenceVoyage"
+              >
+
+                <option value="">
+                  Sélectionnez
+                </option>
+
+                <option value="OCCASIONNEL">
+                  Occasionnel
+                </option>
+
+                <option value="REGULIER">
+                  Régulier
+                </option>
+
+                <option value="TRES_FREQUENT">
+                  Très fréquent
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="form-actions full-width">
+
+              <button
+                type="button"
+                class="cancel-button"
+                (click)="annulerModificationPassager()"
+                [disabled]="modificationPassagerEnCours"
+              >
+
+                Annuler
+
+              </button>
+
+
+              <button
+                type="submit"
+                class="save-button"
+                [disabled]="modificationPassagerEnCours"
+              >
+
+                @if (modificationPassagerEnCours) {
+
+                  <span>
+                    ⏳ Enregistrement...
+                  </span>
+
+                } @else {
+
+                  <span>
+                    💾 Enregistrer
+                  </span>
+
+                }
+
+              </button>
+
+            </div>
+
+          </form>
+
+
+
+          <!-- ERREUR -->
+
+          @if (erreurProfilPassager) {
+
+            <div class="error-message">
+
+              ⚠️ {{ erreurProfilPassager }}
+
+            </div>
+
+          }
+
+
+          <!-- SUCCÈS -->
+
+          @if (messageSuccesPassager) {
+
+            <div class="success-message">
+
+              ✅ {{ messageSuccesPassager }}
+
+            </div>
+
+          }
+
+        </article>
+
+      }
+
+    </section>
+
+  }
+
+</div>

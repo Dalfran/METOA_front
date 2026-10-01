@@ -1,0 +1,383 @@
+<div class="reservations-page">
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="page-header">
+
+    <div class="header-content">
+
+      <span class="eyebrow">
+        MON ESPACE
+      </span>
+
+      <h1>
+        Mes réservations
+      </h1>
+
+      <p>
+        Retrouvez ici toutes vos réservations de trajets.
+      </p>
+
+    </div>
+
+    <a
+      routerLink="/client/trajets"
+      class="search-button"
+    >
+      <span>+</span>
+      Rechercher un trajet
+    </a>
+
+  </header>
+
+
+  <!-- =====================================================
+       STATISTIQUES
+  ====================================================== -->
+
+  @if (!chargement && !erreur) {
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+
+        <div class="stat-icon purple">
+          📋
+        </div>
+
+        <div>
+
+          <span>
+            Total
+          </span>
+
+          <strong>
+            {{ totalReservations }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon green">
+          ✓
+        </div>
+
+        <div>
+
+          <span>
+            Actives
+          </span>
+
+          <strong>
+            {{ reservationsActives }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon grey">
+          ↺
+        </div>
+
+        <div>
+
+          <span>
+            Annulées
+          </span>
+
+          <strong>
+            {{ reservationsAnnulees }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       CHARGEMENT
+  ====================================================== -->
+
+  @if (chargement) {
+
+    <div class="loading-state">
+
+      <div class="spinner"></div>
+
+      <h3>
+        Chargement de vos réservations...
+      </h3>
+
+      <p>
+        Nous récupérons vos voyages.
+      </p>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       ERREUR
+  ====================================================== -->
+
+  @if (!chargement && erreur) {
+
+    <div class="error-state">
+
+      <div class="error-icon">
+        !
+      </div>
+
+      <h2>
+        Impossible de charger vos réservations
+      </h2>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+      <button
+        type="button"
+        class="retry-button"
+        (click)="chargerReservations()"
+      >
+        Réessayer
+      </button>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       AUCUNE RÉSERVATION
+  ====================================================== -->
+
+  @if (
+    !chargement &&
+    !erreur &&
+    reservations.length === 0
+    ) {
+
+    <div class="empty-state">
+
+      <div class="empty-icon">
+        🚗
+      </div>
+
+      <h2>
+        Aucune réservation
+      </h2>
+
+      <p>
+        Vous n'avez encore réservé aucun trajet.
+        Découvrez les trajets disponibles et trouvez
+        votre prochain voyage.
+      </p>
+
+      <a
+        routerLink="/client/trajets"
+        class="search-button"
+      >
+        Rechercher un trajet
+        <span>→</span>
+      </a>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       RÉSERVATIONS
+  ====================================================== -->
+
+  @if (
+    !chargement &&
+    !erreur &&
+    reservations.length > 0
+    ) {
+
+    <section class="reservations-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-label">
+            HISTORIQUE
+          </span>
+
+          <h2>
+            Vos voyages
+          </h2>
+
+        </div>
+
+        <span class="count-badge">
+          {{ reservations.length }}
+          réservation{{ reservations.length > 1 ? 's' : '' }}
+        </span>
+
+      </div>
+
+
+      <div class="reservations-list">
+
+        @for (
+          reservation of reservations;
+          track reservation.idReservation
+          ) {
+
+          <article class="reservation-card">
+
+
+            <!-- =========================================
+                 DATE
+            ========================================== -->
+
+            <div class="reservation-date">
+
+              <span class="date-day">
+                {{ reservation.dateDepart | date:'dd' }}
+              </span>
+
+              <span class="date-month">
+                {{ reservation.dateDepart | date:'MMM' }}
+              </span>
+
+            </div>
+
+
+            <!-- =========================================
+                 TRAJET
+            ========================================== -->
+
+            <div class="reservation-main">
+
+              <div class="route">
+
+                <div class="route-location">
+
+                  <span class="route-dot departure"></span>
+
+                  <div>
+
+                    <span class="route-label">
+                      DÉPART
+                    </span>
+
+                    <strong>
+                      {{ reservation.villeDepart }}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <div class="route-line"></div>
+
+
+                <div class="route-location">
+
+                  <span class="route-dot destination"></span>
+
+                  <div>
+
+                    <span class="route-label">
+                      DESTINATION
+                    </span>
+
+                    <strong>
+                      {{ reservation.villeDestination }}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="reservation-meta">
+
+                <span>
+                  🕐 {{ reservation.heureDepart }}
+                </span>
+
+                <span>
+                  👤 {{ reservation.nombrePlaces }}
+                  place{{ reservation.nombrePlaces > 1 ? 's' : '' }}
+                </span>
+
+                <span>
+                  💰
+                  {{
+                    reservation.prix * reservation.nombrePlaces
+                      | number:'1.0-0'
+                  }}
+                  FCFA
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 STATUT
+            ========================================== -->
+
+            <div class="reservation-status">
+
+              <span
+                class="status-badge"
+                [class]="getStatutClasse(reservation.statut)"
+              >
+
+                <span class="status-dot"></span>
+
+                {{ getStatutLabel(reservation.statut) }}
+
+              </span>
+
+              <a
+                [routerLink]="[
+                  '/client/reservations',
+                  reservation.idReservation
+                ]"
+                class="details-button"
+              >
+                Détails
+                <span>→</span>
+              </a>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

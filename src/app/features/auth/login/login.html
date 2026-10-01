@@ -1,0 +1,333 @@
+<div class="login-page">
+
+  <!-- Décoration arrière-plan -->
+
+  <div class="background-glow background-glow-left"></div>
+  <div class="background-glow background-glow-right"></div>
+
+
+  <!-- Retour accueil -->
+
+  <a routerLink="/" class="back-home">
+    ← Retour à l'accueil
+  </a>
+
+
+  <main class="login-container">
+
+    <!-- Partie présentation -->
+
+    <section class="login-intro">
+
+      <div class="brand">
+        <span class="brand-icon">
+            <img src="favicon.ico" alt="">
+        </span>
+
+
+      </div>
+
+
+      <span class="intro-badge">
+        ✦ Bienvenue sur METOA
+      </span>
+
+
+      <h1>
+        Voyagez autrement.
+        <span>Voyagez ensemble.</span>
+      </h1>
+
+
+      <p>
+        Connectez-vous à votre compte pour retrouver
+        vos trajets, vos réservations et votre communauté.
+      </p>
+
+
+      <div class="intro-features">
+
+        <div class="intro-feature">
+          <span class="feature-icon">✓</span>
+
+          <div>
+            <strong>
+              Des trajets fiables
+            </strong>
+
+            <small>
+              Voyagez avec des conducteurs vérifiés.
+            </small>
+          </div>
+        </div>
+
+
+        <div class="intro-feature">
+          <span class="feature-icon">★</span>
+
+          <div>
+            <strong>
+              Une communauté de confiance
+            </strong>
+
+            <small>
+              Consultez les notes et les avis.
+            </small>
+          </div>
+        </div>
+
+
+        <div class="intro-feature">
+          <span class="feature-icon">↗</span>
+
+          <div>
+            <strong>
+              Simple et rapide
+            </strong>
+
+            <small>
+              Trouvez votre prochain trajet facilement.
+            </small>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Formulaire -->
+
+    <section class="login-card">
+
+      <div class="card-header">
+
+        <span class="card-label">
+          ESPACE MEMBRE
+        </span>
+
+        <h2>
+          Bon retour
+        </h2>
+
+        <p>
+          Connectez-vous pour continuer.
+        </p>
+
+      </div>
+
+
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="connexion()"
+        novalidate
+      >
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label for="email">
+            Adresse email
+          </label>
+
+          <div
+            class="input-wrapper"
+            [class.input-error]="
+              email.invalid &&
+              (email.touched || formulaireSoumis)
+            "
+          >
+
+            <span class="input-icon">
+              @
+            </span>
+
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="exemple@email.com"
+              autocomplete="email"
+            />
+
+          </div>
+
+
+          @if (
+            email.invalid &&
+            (email.touched || formulaireSoumis)
+          ) {
+
+            <small class="error-message">
+
+              @if (email.errors?.['required']) {
+                L'adresse email est obligatoire.
+              }
+
+              @if (email.errors?.['email']) {
+                Veuillez entrer une adresse email valide.
+              }
+
+            </small>
+
+          }
+
+        </div>
+
+
+        <!-- MOT DE PASSE -->
+
+        <div class="form-group">
+
+          <div class="label-row">
+
+            <label for="motDePasse">
+              Mot de passe
+            </label>
+
+            <a
+              routerLink="/forgot-password"
+              class="forgot-link"
+            >
+              Mot de passe oublié ?
+            </a>
+
+          </div>
+
+
+          <div
+            class="input-wrapper"
+            [class.input-error]="
+              motDePasse.invalid &&
+              (motDePasse.touched || formulaireSoumis)
+            "
+          >
+
+            <span class="input-icon">
+              •
+            </span>
+
+
+            <input
+              id="motDePasse"
+              [type]="
+                afficherMotDePasse
+                  ? 'text'
+                  : 'password'
+              "
+              formControlName="motDePasse"
+              placeholder="Votre mot de passe"
+              autocomplete="current-password"
+            />
+
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="basculerMotDePasse()"
+              [attr.aria-label]="
+                afficherMotDePasse
+                  ? 'Masquer le mot de passe'
+                  : 'Afficher le mot de passe'
+              "
+            >
+              {{ afficherMotDePasse ? '◉' : '○' }}
+            </button>
+
+          </div>
+
+
+          @if (
+            motDePasse.invalid &&
+            (motDePasse.touched || formulaireSoumis)
+          ) {
+
+            <small class="error-message">
+
+              @if (motDePasse.errors?.['required']) {
+                Le mot de passe est obligatoire.
+              }
+
+              @if (motDePasse.errors?.['minlength']) {
+                Le mot de passe doit contenir au moins 6 caractères.
+              }
+
+            </small>
+
+          }
+
+        </div>
+
+
+        <!-- SE SOUVENIR -->
+
+        <label class="remember-option">
+
+          <input
+            type="checkbox"
+            formControlName="seSouvenir"
+          />
+
+          <span class="custom-checkbox"></span>
+
+          <span>
+            Se souvenir de moi
+          </span>
+
+        </label>
+
+
+        <!-- ERREUR CONNEXION -->
+
+        @if (erreurConnexion) {
+
+          <div class="connection-message">
+            {{ erreurConnexion }}
+          </div>
+
+        }
+
+
+        <!-- BOUTON -->
+
+        <button
+          type="submit"
+          class="login-button"
+          [disabled]="connexionEnCours"
+        >
+          @if (connexionEnCours) {
+            <span>Connexion...</span>
+          } @else {
+            <span>Se connecter</span>
+            <span class="button-arrow">→</span>
+          }
+        </button>
+
+        <!-- INSCRIPTION -->
+
+        <div class="register-link">
+
+          <span>
+            Vous n'avez pas encore de compte ?
+          </span>
+
+          <a
+            [routerLink]="['/register']"
+            [queryParams]="{
+            returnUrl: getReturnUrl()
+            }"
+          >
+            Créer un compte
+          </a>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+</div>

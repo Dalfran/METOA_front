@@ -1,0 +1,537 @@
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section class="hero">
+
+  <div class="hero-container">
+
+    <div class="hero-content">
+
+      <span class="hero-badge">
+        Le covoiturage autrement
+      </span>
+
+      <h1>
+        Voyagez ensemble
+        <span>avec METOA</span>
+      </h1>
+
+      <p>
+        Trouvez votre prochain trajet, partagez votre voyage
+        et découvrez une nouvelle manière de vous déplacer.
+      </p>
+
+      <div class="hero-actions">
+
+        <a
+          routerLink="/trajets"
+          class="primary-button"
+        >
+          Rechercher un trajet
+        </a>
+
+        <a
+          routerLink="/register"
+          class="secondary-button"
+        >
+          Créer un compte
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         HERO VISUAL
+         ================================================= -->
+
+    <div class="hero-visual">
+
+      <div class="glow glow-pink"></div>
+      <div class="glow glow-purple"></div>
+
+      <div class="travel-card">
+
+        <div class="travel-card-header">
+
+          <span>
+            Prochain trajet
+          </span>
+
+          <span class="status">
+            Disponible
+          </span>
+
+        </div>
+
+
+        <div class="route">
+
+          <div class="location">
+
+            <span class="dot"></span>
+
+            <div>
+
+              <small>
+                Départ
+              </small>
+
+              <strong>
+                Yaoundé
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="route-line"></div>
+
+
+          <div class="location">
+
+            <span class="dot destination"></span>
+
+            <div>
+
+              <small>
+                Destination
+              </small>
+
+              <strong>
+                Douala
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="travel-info">
+
+          <span>
+            🕐 08:00
+          </span>
+
+          <span>
+            👤 3 places
+          </span>
+
+          <strong>
+            3 500 FCFA
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+     ===================================================== -->
+
+<section class="features">
+
+  <div class="section-heading">
+
+    <span>
+      POURQUOI METOA ?
+    </span>
+
+    <h2>
+      Une expérience pensée
+      <span>pour vous.</span>
+    </h2>
+
+  </div>
+
+
+  <div class="feature-grid">
+
+    <article class="feature-card">
+
+      <div class="feature-icon">
+        🚗
+      </div>
+
+      <h3>
+        Trajets fiables
+      </h3>
+
+      <p>
+        Trouvez facilement des trajets correspondant
+        à vos besoins.
+      </p>
+
+    </article>
+
+
+    <article class="feature-card">
+
+      <div class="feature-icon">
+        🛡️
+      </div>
+
+      <h3>
+        Voyagez en confiance
+      </h3>
+
+      <p>
+        Consultez les profils, les évaluations et
+        les avis de la communauté.
+      </p>
+
+    </article>
+
+
+    <article class="feature-card">
+
+      <div class="feature-icon">
+        💬
+      </div>
+
+      <h3>
+        Échangez facilement
+      </h3>
+
+      <p>
+        Discutez avec les autres utilisateurs grâce
+        à notre messagerie intégrée.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TRAJETS POPULAIRES
+     ===================================================== -->
+
+<section class="popular-trips">
+
+  <div class="section-heading">
+
+    <span>
+      TRAJETS DISPONIBLES
+    </span>
+
+    <h2>
+      Les trajets
+      <span>populaires</span>
+    </h2>
+
+    <p class="section-description">
+      Découvrez quelques-uns des trajets actuellement
+      disponibles sur METOA.
+    </p>
+
+  </div>
+
+
+  <!-- ==============================
+       CHARGEMENT
+       ============================== -->
+
+  @if (chargementTrajets) {
+
+    <div class="trips-loading">
+
+      <div class="loading-spinner"></div>
+
+      <p>
+        Recherche des trajets disponibles...
+      </p>
+
+    </div>
+
+  }
+
+
+  <!-- ==============================
+       ERREUR
+       ============================== -->
+
+  @if (!chargementTrajets && erreurTrajets) {
+
+    <div class="trips-error">
+
+      <span>
+        ⚠️
+      </span>
+
+      <p>
+        {{ erreurTrajets }}
+      </p>
+
+      <button
+        type="button"
+        class="retry-button"
+        (click)="chargerTrajetsPopulaires()"
+      >
+        Réessayer
+      </button>
+
+    </div>
+
+  }
+
+
+  <!-- ==============================
+       AUCUN TRAJET
+       ============================== -->
+
+  @if (
+    !chargementTrajets &&
+    !erreurTrajets &&
+    trajetsPopulaires.length === 0
+    ) {
+
+    <div class="trips-empty">
+
+      <div class="empty-icon">
+        🚗
+      </div>
+
+      <h3>
+        Aucun trajet disponible
+      </h3>
+
+      <p>
+        Aucun trajet correspondant n'est actuellement disponible.
+      </p>
+
+      <a
+        routerLink="/trajets"
+        class="primary-button"
+      >
+        Voir tous les trajets
+      </a>
+
+    </div>
+
+  }
+
+
+  <!-- ==============================
+       LISTE DES TRAJETS
+       ============================== -->
+
+  @if (
+    !chargementTrajets &&
+    !erreurTrajets &&
+    trajetsPopulaires.length > 0
+    ) {
+
+    <div class="popular-trips-grid">
+
+      @for (
+        trajet of trajetsPopulaires;
+        track trajet.idTrajet
+        ) {
+
+        <article class="popular-trip-card">
+
+          <!-- En-tête -->
+
+          <div class="trip-card-header">
+
+            <span class="trip-status">
+              Disponible
+            </span>
+
+            <span class="trip-price">
+              {{ trajet.prix | number:'1.0-0' }} FCFA
+            </span>
+
+          </div>
+
+
+          <!-- Trajet -->
+
+          <div class="trip-route">
+
+            <div class="trip-location">
+
+              <span class="trip-dot departure"></span>
+
+              <div>
+
+                <small>
+                  Départ
+                </small>
+
+                <strong>
+                  {{ trajet.villeDepart }}
+                </strong>
+
+                <span class="trip-address">
+                  {{ trajet.adresseDepart }}
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="trip-line"></div>
+
+
+            <div class="trip-location">
+
+              <span class="trip-dot destination"></span>
+
+              <div>
+
+                <small>
+                  Destination
+                </small>
+
+                <strong>
+                  {{ trajet.villeDestination }}
+                </strong>
+
+                <span class="trip-address">
+                  {{ trajet.adresseDestination }}
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Informations -->
+
+          <div class="trip-info">
+
+            <div>
+
+              <span class="info-label">
+                📅 Date
+              </span>
+
+              <strong>
+                {{ trajet.dateDepart | date:'dd/MM/yyyy' }}
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span class="info-label">
+                🕐 Heure
+              </span>
+
+              <strong>
+                {{ trajet.heureDepart }}
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span class="info-label">
+                🪑 Places
+              </span>
+
+              <strong>
+                {{ trajet.placesDisponibles }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- Chauffeur -->
+
+          <div class="driver">
+
+            <div class="driver-avatar">
+              {{ trajet.chauffeur.prenom.charAt(0) }}
+            </div>
+
+            <div class="driver-info">
+
+              <span>
+                Chauffeur
+              </span>
+
+              <strong>
+                {{ trajet.chauffeur.prenom }}
+                {{ trajet.chauffeur.nom }}
+              </strong>
+
+            </div>
+
+            @if (trajet.chauffeur.noteMoyenne !== undefined) {
+
+              <div class="driver-rating">
+
+                ⭐
+                {{ trajet.chauffeur.noteMoyenne | number:'1.1-1' }}
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- Action -->
+
+          <a
+            [routerLink]="['/trajets', trajet.idTrajet]"
+            class="trip-details-button"
+          >
+            Voir le trajet
+
+            <span>
+              →
+            </span>
+
+          </a>
+
+        </article>
+
+      }
+
+    </div>
+
+
+    <!-- Voir tous les trajets -->
+
+    <div class="all-trips-action">
+
+      <a
+        routerLink="/trajets"
+        class="secondary-button"
+      >
+        Voir tous les trajets
+        <span>→</span>
+      </a>
+
+    </div>
+
+  }
+
+</section>
